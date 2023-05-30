@@ -52,6 +52,8 @@ public final class FileUtils {
         return UtilsBridge.isSpace(filePath) ? null : new File(filePath);
     }
 
+
+
     /**
      * Return whether the file exists.
      *

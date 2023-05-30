@@ -14,14 +14,6 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
 
-/**
- * <pre>
- * author: Blankj
- * blog  : http://blankj.com
- * time  : 2016/08/27
- * desc  : utils about zip
-</pre> *
- */
 object ZipUtils{
 
         private const val BUFFER_LEN = 8192

@@ -8,10 +8,12 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.Point
 import android.os.Build
 import android.provider.Settings
 import android.provider.Settings.SettingNotFoundException
+import android.util.DisplayMetrics
 import android.view.Surface
 import android.view.View
 import android.view.WindowManager
@@ -274,25 +276,25 @@ object ScreenUtils {
      * @param activity The activity.
      * @return the bitmap of screen
      */
-//    @JvmOverloads
-//    fun screenShot(activity: Activity, isDeleteStatusBar: Boolean = false): Bitmap {
-//        val decorView = activity.window.decorView
-//        val bmp = UtilsBridge.view2Bitmap(decorView)
-//        val dm = DisplayMetrics()
-//        activity.windowManager.defaultDisplay.getMetrics(dm)
-//        return if (isDeleteStatusBar) {
-//            val statusBarHeight = UtilsBridge.getStatusBarHeight()
-//            Bitmap.createBitmap(
-//                bmp,
-//                0,
-//                statusBarHeight,
-//                dm.widthPixels,
-//                dm.heightPixels - statusBarHeight
-//            )
-//        } else {
-//            Bitmap.createBitmap(bmp, 0, 0, dm.widthPixels, dm.heightPixels)
-//        }
-//    }
+    @JvmOverloads
+    fun screenShot(activity: Activity, isDeleteStatusBar: Boolean = false): Bitmap {
+        val decorView = activity.window.decorView
+        val bmp = UtilsBridge.view2Bitmap(decorView)
+        val dm = DisplayMetrics()
+        activity.windowManager.defaultDisplay.getMetrics(dm)
+        return if (isDeleteStatusBar) {
+            val statusBarHeight = UtilsBridge.getStatusBarHeight()
+            Bitmap.createBitmap(
+                bmp,
+                0,
+                statusBarHeight,
+                dm.widthPixels,
+                dm.heightPixels - statusBarHeight
+            )
+        } else {
+            Bitmap.createBitmap(bmp, 0, 0, dm.widthPixels, dm.heightPixels)
+        }
+    }
 
     /**
      * Return whether screen is locked.

@@ -23,14 +23,14 @@ object UtilsBridge {
     @SuppressLint("StaticFieldLeak")
     lateinit var app: Application
 
-    //    // BarUtils
-    //    static int getStatusBarHeight() {
-    //        return BarUtils.getStatusBarHeight();
-    //    }
-    //
-    //    static int getNavBarHeight() {
-    //        return BarUtils.getNavBarHeight();
-    //    }
+    // BarUtils
+    open fun getStatusBarHeight(): Int {
+        return BarUtils.statusBarHeight
+    }
+
+    fun getNavBarHeight(): Int {
+        return BarUtils.navBarHeight
+    }
 
     // FileIOUtils
     ///////////////////////////////////////////////////////////////////////////
