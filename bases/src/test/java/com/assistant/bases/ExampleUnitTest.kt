@@ -1,4 +1,4 @@
-package com.kakusummer.androidutils
+package com.assistant.bases
 
 import org.junit.Test
 
