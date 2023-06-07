@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#00FFFF</color>
+
+      <color name="translucent">#00000000</color>
+    <!--黑色 不透明度-->
+    <color name="translucent_05">#0B000000</color>
+    <color name="translucent_10">#1A000000</color>
+    <color name="translucent_11">#1C000000</color>
+    <color name="translucent_12">#1F000000</color>
+    <color name="translucent_15">#26000000</color>
+    <color name="translucent_20">#33000000</color>
+    <color name="translucent_25">#40000000</color>
+    <color name="translucent_30">#4D000000</color>
+    <color name="translucent_40">#66000000</color>
+    <color name="translucent_50">#80000000</color>
+    <color name="translucent_60">#9A000000</color>
+    <color name="translucent_70">#B3000000</color>
+    <color name="translucent_75">#BF000000</color>
+    <color name="translucent_80">#CC000000</color>
+    <color name="translucent_85">#D9000000</color>
+    <color name="translucent_90">#E5000000</color>
+    <!--白色 不透明度-->
+    <color name="translucent_4_white">#0AFFFFFF</color>
+    <color name="translucent_8_white">#14FFFFFF</color>
+    <color name="translucent_10_white">#1AFFFFFF</color>
+    <color name="translucent_11_white">#1CFFFFFF</color>
+    <color name="translucent_12_white">#1FFFFFFF</color>
+    <color name="translucent_20_white">#33FFFFFF</color>
+    <color name="translucent_30_white">#4DFFFFFF</color>
+    <color name="translucent_40_white">#66FFFFFF</color>
+    <color name="translucent_50_white">#80FFFFFF</color>
+    <color name="translucent_60_white">#9AFFFFFF</color>
+    <color name="translucent_70_white">#B3FFFFFF</color>
+    <color name="translucent_75_white">#BFFFFFFF</color>
+    <color name="translucent_80_white">#CCFFFFFF</color>
+    <color name="translucent_85_white">#D9FFFFFF</color>
+    <color name="translucent_90_white">#E5FFFFFF</color>
+    <color name="white_148">#E4E3E9</color>
+    <color name="white_70_148">#B3E4E3E9</color>
+
+    <color name="white_50_148">#80E4E3E9</color>
+    <color name="white_90_148">#E6E4E3E9</color>
+    <color name="black_60_00">#99000000</color>
+    <color name="black_17">#111111</color>
+
+    <!--  主色调  -->
+    <color name="page_color">#121212</color>
+    <color name="page_bottom_color_start">#212121</color>
+    <color name="page_bottom_color_end">#0E0E0E</color>
+
+    <color name="filter_default_text_start">#FFC047</color>
+    <color name="filter_default_text_center">#FF8B49</color>
+    <color name="filter_default_text_end">#40B1FF</color>
+
+    <!--  标记颜色取色规则:HEX  H:0~360 S:70  B:90  -->
+    <color name="color_effect_0">#E67A45</color>
+    <color name="color_effect_20">#E6B045</color>
+    <color name="color_effect_40">#E6E645</color>
+    <color name="color_effect_60">#B0E645</color>
+    <color name="color_effect_80">#7AE645</color>
+    <color name="color_effect_100">#45E645</color>
+    <color name="color_effect_120">#45E67A</color>
+    <color name="color_effect_140">#45E6B0</color>
+    <color name="color_effect_160">#45E3E6</color>
+    <color name="color_effect_180">#45B0E6</color>
+    <color name="color_effect_200">#457AE6</color>
+    <color name="color_effect_220">#4545E6</color>
+    <color name="color_effect_240">#7A45E6</color>
+    <color name="color_effect_260">#B045E6</color>
+    <color name="color_effect_280">#E645E6</color>
+    <color name="color_effect_300">#E645B0</color>
+    <color name="color_effect_320">#E6457A</color>
+    <color name="color_effect_340">#E64545</color>
+
+
+
+</resources>
