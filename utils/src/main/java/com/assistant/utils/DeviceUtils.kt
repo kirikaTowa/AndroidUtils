@@ -124,7 +124,7 @@ object DeviceUtils {
         //        setWifiEnabled(false);
         //        return getMacAddress((String[]) null);
         //    }
-        var wifiEnabled: Boolean = false
+        val wifiEnabled: Boolean
             get() {
                 @SuppressLint("WifiManagerLeak") val manager: WifiManager? =
                     UtilsBridge.app.getSystemService(
@@ -143,11 +143,10 @@ object DeviceUtils {
          */
         @RequiresPermission(permission.CHANGE_WIFI_STATE)
         private fun setWifiEnabled(enabled: Boolean) {
-            @SuppressLint("WifiManagerLeak") val manager: WifiManager? =
+            @SuppressLint("WifiManagerLeak") val manager: WifiManager =
                 UtilsBridge.app.getSystemService(
                     Context.WIFI_SERVICE
-                ) as WifiManager
-            if (manager == null) return
+                ) as WifiManager ?: return
             if (enabled == manager.isWifiEnabled) return
             manager.isWifiEnabled = enabled
         }
