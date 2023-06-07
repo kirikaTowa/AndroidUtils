@@ -1,4 +1,4 @@
-package com.assistant.utils//package com.assistant.utils.ui
+package com.assistant.utils
 
 import android.app.Activity
 import android.content.Context
@@ -18,14 +18,6 @@ import android.view.WindowManager
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 
-/**
- * <pre>
- * author: Blankj
- * blog  : http://blankj.com
- * time  : 2016/09/23
- * desc  : utils about bar
-</pre> *
- */
 class BarUtils private constructor() {
     init {
         throw UnsupportedOperationException("u can't instantiate me...")
