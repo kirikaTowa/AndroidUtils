@@ -3,9 +3,13 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+apply from: "config.gradle"
+def cfg = rootProject.ext.android // 工程配置
+def libs = rootProject.ext.dependencies // 库依赖
+
 android {
     namespace 'com.kakusummer.androidutils'
-    compileSdk 33
+    compileSdk cfg.compileSdk
 
     defaultConfig {
         applicationId "com.kakusummer.androidutils"
