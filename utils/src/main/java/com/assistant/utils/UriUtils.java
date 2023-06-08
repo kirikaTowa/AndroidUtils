@@ -22,14 +22,6 @@ import java.lang.reflect.Method;
 
 import androidx.core.content.FileProvider;
 
-/**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2018/04/20
- *     desc  : utils about uri
- * </pre>
- */
 public final class UriUtils {
 
     private UriUtils() {

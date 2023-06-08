@@ -54,14 +54,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
-/**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/08/12
- *     desc  : utils about image
- * </pre>
- */
 public final class ImageUtils {
 
     private ImageUtils() {

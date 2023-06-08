@@ -1,14 +1,6 @@
 package com.kakusummer.sample.Dialog
 
-import android.app.Activity
 import android.content.Context
-import android.graphics.Color
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.TextPaint
-import android.text.method.LinkMovementMethod
-import android.text.style.*
-import android.view.View
 import com.assistant.bases.BaseDialog
 import com.kakusummer.androidutils.R
 import com.kakusummer.androidutils.databinding.DialogStatementBinding
@@ -20,8 +12,10 @@ class TipUserPoliceDialog
 
 
     override val dialogStyleId: Int
-        get() = DIALOG_COMMON_STYLE
-    override val stateCanceled: Boolean
+        get() = defaultStyle
+    override val isCanceledTouch: Boolean
+        get() = false
+    override val isCanceledReturn: Boolean
         get() = false
     override val layoutId: Int
         get() = R.layout.dialog_statement

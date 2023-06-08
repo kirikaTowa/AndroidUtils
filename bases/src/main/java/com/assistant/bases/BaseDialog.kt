@@ -5,46 +5,38 @@ import android.content.Context
 import android.view.Display
 import android.view.LayoutInflater
 import android.view.WindowManager
-import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
 
-abstract class BaseDialog<VB : ViewDataBinding>(
-    var context: Context
-) {
-    val DIALOG_COMMON_STYLE:Int= R.style.common_dialog_style
+abstract class BaseDialog<VB : ViewDataBinding>(context: Context) {
+    val defaultStyle:Int= R.style.common_dialog_style
     private val display: Display
     private var dialog : Dialog? = null
     abstract val layoutId: Int
 
-
     protected abstract val dialogStyleId: Int
-    protected abstract val stateCanceled: Boolean
+    protected abstract val isCanceledTouch: Boolean
+    protected abstract val isCanceledReturn: Boolean
     protected lateinit var binding: VB
-
 
     init {
         binding = DataBindingUtil.inflate(LayoutInflater.from(context),layoutId, null, false)
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         display = windowManager.defaultDisplay
         dialog = if (dialogStyleId == 0) {
-            Dialog(context, DIALOG_COMMON_STYLE)
+            Dialog(context, defaultStyle)
         } else {
             Dialog(context, dialogStyleId)
         }
-        // 调整dialog背景大小
-        binding.root.layoutParams = FrameLayout.LayoutParams(
-            (display.width * 0.8).toInt(),
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
 
-        dialog?.setContentView(binding.root)
-        //隐藏系统输入盘
-        dialog?.setCanceledOnTouchOutside(stateCanceled)
-        dialog?.window!!
-            .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        dialog?.apply {
+            setContentView(binding.root)
+            setCanceledOnTouchOutside(isCanceledTouch)
+            setCancelable(isCanceledReturn)
+            //隐藏系统输入盘
+            window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        }
         initViewEvent()
     }
     protected open fun initViewEvent() {}
@@ -55,6 +47,20 @@ abstract class BaseDialog<VB : ViewDataBinding>(
 
     fun dismiss() {
         dialog!!.dismiss()
+    }
+
+    //设置尺寸
+    fun setDialogSize(width:Int,height:Int){
+        //DeviceUtil.dip2px(context, 488f), DeviceUtil.dip2px(context, 800f)
+        dialog?.apply {
+            window?.setLayout(width,height)
+            window?.decorView?.setPadding(0, 0, 0, 0)
+        }
+    }
+
+    //设置背景色
+    fun setDialogBackground(res: Int){
+        dialog?.window?.decorView?.setBackgroundResource(res)
     }
 
     val isShowing: Boolean

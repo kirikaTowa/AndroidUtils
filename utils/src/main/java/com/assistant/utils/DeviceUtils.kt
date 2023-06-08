@@ -26,14 +26,6 @@ import java.util.Enumeration
 import java.util.Locale
 import java.util.UUID
 
-/**
- * <pre>
- * author: Blankj
- * blog  : http://blankj.com
- * time  : 2016/8/1
- * desc  : utils about device
-</pre> *
- */
 object DeviceUtils {
 
         val isDeviceRooted: Boolean

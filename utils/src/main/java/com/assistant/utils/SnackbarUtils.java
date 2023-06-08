@@ -24,14 +24,6 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-/**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/10/16
- *     desc  : utils about snackbar
- * </pre>
- */
 public final class SnackbarUtils {
 
     public static final int LENGTH_INDEFINITE = -2;

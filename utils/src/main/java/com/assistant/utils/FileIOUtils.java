@@ -25,14 +25,7 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2017/06/22
- *     desc  : utils about file io
- * </pre>
- */
+
 public final class FileIOUtils {
 
     private static int sBufferSize = 524288;
