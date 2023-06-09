@@ -12,17 +12,19 @@ def version_fragment_ktx = "1.4.1"
 def version_immersion_bar = "3.2.2"
 
 
-
-
 //Android/编译配置管理
 ext {
     android = [
             buildToolsVersion: "25.0.2",
-            compileSdk: 33,
-            minSdk    : 24,
-            targetSdk : 33,
-            versionCode      : 1,
-            versionName      : "1.0"
+
+            compileSdk          : 33,
+            minSdk              : 24,
+            targetSdk           : 33,
+            versionCode         : 1,
+            versionName         : "1.0",
+
+            Compatibility       : JavaVersion.VERSION_1_8,
+            jvmTarget           : '1.8'
     ]
 
 //依赖统一管理
@@ -31,7 +33,7 @@ ext {
                     "material"                    : "com.google.android.material:material:${version_material}",
                     "constraintlayout"            : "androidx.constraintlayout:constraintlayout:${version_constraintlayout}",
                     "junit"                       : "junit:junit:${version_junit}",
-                    "_ext_junit"                  : "androidx.test.ext:junit:${version_ext_junit}",
+                    "junit_ext"                  : "androidx.test.ext:junit:${version_ext_junit}",
                     "espresso_core"               : "androidx.test.espresso:${version_espresso_core}",
             
                     //lifecycle

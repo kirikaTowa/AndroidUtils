@@ -3,13 +3,16 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def cfg = rootProject.ext.android // 工程配置
+def libs = rootProject.ext.dependencies // 库依赖
+
 android {
     namespace 'com.assistant.utils'
-    compileSdk 33
+    compileSdk cfg.compileSdk
 
     defaultConfig {
-        minSdk 14
-        targetSdk 33
+        minSdk cfg.minSdk
+        targetSdk cfg.targetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -22,20 +25,20 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility cfg.Compatibility
+        targetCompatibility cfg.Compatibility
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget =  cfg.jvmTarget
     }
 }
 
 dependencies {
+    implementation libs["core-ktx"]
+    implementation libs["appcompat"]
+    implementation libs["material"]
 
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation libs["junit"]
+    androidTestImplementation libs["junit_ext"]
+    androidTestImplementation libs["espresso_core"]
 }
