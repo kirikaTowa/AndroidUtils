@@ -1,15 +1,17 @@
 package com.kakusummer.sample
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.assistant.bases.BaseActivity
 import com.kakusummer.androidutils.R
+import com.kakusummer.androidutils.databinding.ActivityMainBinding
 import com.kakusummer.sample.Dialog.TipUserPoliceDialog
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+    override val layoutId: Int
+        get() = R.layout.activity_main
 
+
+    override fun initView() {
+        super.initView()
         var tipUserDialog:TipUserPoliceDialog?=null
         tipUserDialog= TipUserPoliceDialog(this@MainActivity) {
             if (it) {
