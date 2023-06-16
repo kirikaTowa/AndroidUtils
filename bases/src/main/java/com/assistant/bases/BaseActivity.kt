@@ -2,6 +2,7 @@ package com.assistant.bases
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import androidx.activity.OnBackPressedCallback
@@ -43,6 +44,7 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
         //onBackPressed被弃用  代码中主动调需这样：onBackPressedDispatcher.onBackPressed()
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                Log.d("yeTest", "handleOnBackPressed: ")
                 finish()
             }
         })

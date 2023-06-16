@@ -1,5 +1,7 @@
 package com.kakusummer.sample
 
+import android.util.Log
+import androidx.activity.OnBackPressedCallback
 import com.assistant.bases.BaseActivity
 import com.kakusummer.androidutils.R
 import com.kakusummer.androidutils.databinding.ActivityMainBinding
@@ -25,4 +27,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         tipUserDialog.show()
     }
 
+    override fun initListener() {
+        super.initListener()
+
+        //可以覆盖掉父方法
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                Log.d("yeTest", "handleOnBackPressed cover: ")
+            }
+        })
+    }
 }
