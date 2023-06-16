@@ -6,4 +6,6 @@
     <string name="str_statement_no">不同意</string>
     <string name="str_protocol_one">《用户协议》</string>
     <string name="str_protocol_two">《隐私政策》</string>
+
+    <string name="str_no_blue_tooth">当前设备不支持蓝牙</string>
 </resources>

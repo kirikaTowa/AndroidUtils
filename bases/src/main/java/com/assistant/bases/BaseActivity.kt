@@ -1,6 +1,7 @@
 package com.assistant.bases
 
 import android.content.pm.PackageManager
+import android.nfc.Tag
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -19,6 +20,7 @@ import com.gyf.immersionbar.ImmersionBar
 abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
     private lateinit var binding: VB
     abstract val layoutId: Int
+    abstract val TAG: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

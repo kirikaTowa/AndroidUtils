@@ -78,4 +78,6 @@ dependencies {
     implementation libs["immersionbar-ktx"]
     // fragment快速实现（可选）已废弃
     implementation libs["immersionbar-components"]
+
+    implementation 'com.guolindev.permissionx:permissionx:1.7.1'
 }
