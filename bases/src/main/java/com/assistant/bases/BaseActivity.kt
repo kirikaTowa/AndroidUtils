@@ -19,6 +19,7 @@ import com.gyf.immersionbar.ImmersionBar
 abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
     private lateinit var binding: VB
     abstract val layoutId: Int
+    abstract val TAG: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
