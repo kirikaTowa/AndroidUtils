@@ -1,13 +1,10 @@
-package com.kakusummer.sample
+package com.yuantu.sample
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.os.Handler
 import com.assistant.utils.UtilsBridge
-
-
-
 
 
 class App : Application() {

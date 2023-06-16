@@ -1,4 +1,4 @@
-package com.kakusummer.sample
+package com.yuantu.sample
 
 import org.junit.Test
 

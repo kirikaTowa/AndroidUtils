@@ -1,4 +1,4 @@
-package com.kakusummer.sample
+package com.yuantu.sample
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
