@@ -30,7 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initListener() {
         super.initListener()
 
-        //可以覆盖掉父方法
+        //可以覆盖掉父监听
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 Log.d("yeTest", "handleOnBackPressed cover: ")
