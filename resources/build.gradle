@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.assistant.resourses'
+    namespace 'com.assistant.resources'
     compileSdk 33
 
     defaultConfig {

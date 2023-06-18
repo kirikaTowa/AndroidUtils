@@ -7,7 +7,7 @@ import com.kakusummer.androidutils.databinding.DialogStatementBinding
 
 
 class TipUserPoliceDialog
-    (context: Context?, var callback: ((Boolean) -> Unit)?) :
+    (var context: Context?, var callback: ((Boolean) -> Unit)?) :
     BaseDialog<DialogStatementBinding>(context!!) {
 
 

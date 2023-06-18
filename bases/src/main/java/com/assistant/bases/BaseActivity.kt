@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.gyf.immersionbar.ImmersionBar
-import com.assistant.resourses.R
+import com.assistant.resources.R
 
 //所有Activity基类
 abstract class BaseActivity<VB : ViewDataBinding>  : AppCompatActivity() {

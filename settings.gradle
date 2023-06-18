@@ -16,4 +16,4 @@ rootProject.name = "AndroidUtils"
 include ':app'
 include ':utils'
 include ':bases'
-include ':resourses'
+include ':resources'
