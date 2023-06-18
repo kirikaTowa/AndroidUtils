@@ -2,8 +2,10 @@ package com.assistant.bases
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -15,14 +17,15 @@ import com.gyf.immersionbar.ImmersionBar
 import com.assistant.resources.R
 
 //所有Activity基类
-abstract class BaseActivity<VB : ViewDataBinding>  : AppCompatActivity() {
-    protected lateinit var binding: VB
+abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
+    private lateinit var binding: VB
     abstract val layoutId: Int
+    abstract val TAG: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         binding = DataBindingUtil.setContentView(this, layoutId)
         initView()
         initDate()//数据支持
@@ -37,7 +40,15 @@ abstract class BaseActivity<VB : ViewDataBinding>  : AppCompatActivity() {
 
 
     //    adapter listener
-    protected open fun initListener() {}
+    protected open fun initListener() {
+        //onBackPressed被弃用  代码中主动调需这样：onBackPressedDispatcher.onBackPressed()
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                Log.d("yeTest", "handleOnBackPressed: ")
+                finish()
+            }
+        })
+    }
 
     fun closeContent(view: View) {
         finish()
@@ -48,7 +59,6 @@ abstract class BaseActivity<VB : ViewDataBinding>  : AppCompatActivity() {
     }
 
 
-
     fun isPermissionGranted(vararg permission: String): Boolean {
         val result = permission.filter {
             ContextCompat.checkSelfPermission(
@@ -56,7 +66,7 @@ abstract class BaseActivity<VB : ViewDataBinding>  : AppCompatActivity() {
                 it
             ) == PackageManager.PERMISSION_GRANTED
         }
-        return result.size == permission.size-1
+        return result.size == permission.size - 1
     }
 
     open fun onShowPermissionRationale(permissions: Array<out String>) { //需要给出提示(业务逻辑是被禁止时给出就行)
@@ -72,7 +82,7 @@ abstract class BaseActivity<VB : ViewDataBinding>  : AppCompatActivity() {
     private val permissionLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissionResults ->
             val granted = permissionResults.filter { it.value }
-            val isGranted = granted.size == permissionResults.size-1//9.0前无前景 9.0后无Log
+            val isGranted = granted.size == permissionResults.size - 1//9.0前无前景 9.0后无Log
             permissionCallback?.invoke(isGranted)
             val permissions = permissionResults.keys.toTypedArray()
             if (!isGranted && shouldShowPermissionRationale(*permissions)) {
@@ -89,10 +99,6 @@ abstract class BaseActivity<VB : ViewDataBinding>  : AppCompatActivity() {
         if (permissions.isEmpty()) return
         permissionCallback = callback
         permissionLauncher.launch(permissions as Array<String>?)
-    }
-
-    override fun onBackPressed() {
-        finish()
     }
 
     override fun finish() {
