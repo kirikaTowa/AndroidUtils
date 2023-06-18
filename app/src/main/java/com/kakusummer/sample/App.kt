@@ -13,17 +13,17 @@ import com.assistant.utils.UtilsBridge
 class App : Application() {
 
     companion object {
-        lateinit var MHANDLER: Handler
+        lateinit var originHandler: Handler
             private set
         @SuppressLint("StaticFieldLeak")
-        lateinit var CONTEXT: Context
+        lateinit var originContext: Context
            private set
     }
 
     override fun onCreate() {
         super.onCreate()
-        CONTEXT = applicationContext//=this应该也行
-        MHANDLER = Handler()
+        originContext = applicationContext//=this应该也行
+        originHandler = Handler()
         //val rootDir = MMKV.initialize(this)
         UtilsBridge.initApp(this)
     }
