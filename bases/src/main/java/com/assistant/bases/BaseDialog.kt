@@ -14,6 +14,7 @@ abstract class BaseDialog<VB : ViewDataBinding>(context: Context) {
     private val display: Display
     private var dialog : Dialog? = null
     abstract val layoutId: Int
+    abstract val TAG: String
 
     protected abstract val dialogStyleId: Int
     protected abstract val isCanceledTouch: Boolean

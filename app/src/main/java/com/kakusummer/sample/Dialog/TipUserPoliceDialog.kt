@@ -19,6 +19,8 @@ class TipUserPoliceDialog
         get() = false
     override val layoutId: Int
         get() = R.layout.dialog_statement
+    override val TAG: String
+        get() = "TAG_TipUserPoliceDialog"
 
     //View的事件
     override fun initViewEvent() {
