@@ -1,4 +1,4 @@
-package com.yuantu.sample
+package com.kakusummer.sample
 
 import android.annotation.SuppressLint
 import android.app.Application

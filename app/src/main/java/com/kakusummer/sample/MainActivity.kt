@@ -1,4 +1,4 @@
-package com.yuantu.sample
+package com.kakusummer.sample
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -14,8 +14,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.assistant.bases.BaseActivity
 import com.permissionx.guolindev.PermissionX
-import com.yuantu.bluetools.R
-import com.yuantu.bluetools.databinding.ActivityMainBinding
+import com.kakusummer.bluetools.R
+import com.kakusummer.bluetools.databinding.ActivityMainBinding
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {

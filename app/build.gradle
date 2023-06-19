@@ -7,11 +7,11 @@ def cfg = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 
 android {
-    namespace 'com.yuantu.bluetools'
+    namespace 'com.kakusummer.bluetools'
     compileSdk cfg.compileSdk
 
     defaultConfig {
-        applicationId "com.yuantu.bluetools"
+        applicationId "com.kakusummer.bluetools"
         minSdk cfg.minSdk
         targetSdk cfg.targetSdk
         versionCode cfg.versionCode
