@@ -29,7 +29,7 @@ class netWorkViewModel : ViewModel() {
                 LogUtils.d("yeTest", "call: $call")
                 LogUtils.d("yeTest", "onResponse: $response")
                 LogUtils.d("yeTest", "onResponse body: " + response.body())
-                if (response.body()!=null){
+                if (response.isSuccessful && response.body() != null) {
                     setDataMessage(response.body()!!)
                 }
                 closeLoading()
@@ -62,8 +62,8 @@ class netWorkViewModel : ViewModel() {
 //
 //    }
 
-    private fun setDataMessage(dataBean:DataBean){
-        _dataMessage.value=dataBean
+    private fun setDataMessage(dataBean: DataBean) {
+        _dataMessage.value = dataBean
     }
 
     private fun showLoading() {
