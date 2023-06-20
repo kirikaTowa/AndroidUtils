@@ -13,11 +13,14 @@
         tools:context=".MainActivity">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
             android:text="Hello World!"
-            android:background="@color/color_blacks"
-            android:textColor="@color/color_test"
+            android:gravity="center"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -18,7 +18,7 @@ import com.assistant.resources.R
 
 //所有Activity基类
 abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
-    private lateinit var binding: VB
+    lateinit var binding: VB
     abstract val layoutId: Int
     abstract val TAG: String
 
