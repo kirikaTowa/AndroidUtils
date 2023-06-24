@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
 
-abstract class BaseDialog<VB : ViewDataBinding>(context: Context) {
+abstract class BaseDialog<VB : ViewDataBinding>(var context: Context) {
     val defaultStyle:Int= R.style.common_dialog_style
     private val display: Display
     private var dialog : Dialog? = null
