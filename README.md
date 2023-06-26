@@ -9,7 +9,7 @@ The package name of Lydia,Because of the doavahkiin....
 fine.. change to assistant
 ## Use 
 UtilsBridge need initApp() first
-## refer to Blank 
+## refer to Blank ：https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/README.md
 
 ## Describe
 https://juejin.cn/column/7216221384372224037
