@@ -28,6 +28,10 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         binding = DataBindingUtil.setContentView(this, layoutId)
         initView()
+        /**
+         * initView纯View声明
+         * initData看情况 其实数据获取都放子线程问题也不大
+         */
         initDate()//数据支持
         initListener()//子类中并非一定要实现，创建一个function即可
         ImmersionBar.with(this).navigationBarColor(R.color.colorPrimary).init()
