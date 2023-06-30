@@ -1,0 +1,45 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+def cfg = rootProject.ext.android // 工程配置
+def libs = rootProject.ext.dependencies // 库依赖
+
+android {
+    namespace 'com.assistant.viewcustom'
+    compileSdk cfg.compileSdk
+
+    defaultConfig {
+        minSdk cfg.minSdk
+        targetSdk cfg.targetSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility cfg.Compatibility
+        targetCompatibility cfg.Compatibility
+    }
+    kotlinOptions {
+        jvmTarget =  cfg.jvmTarget
+    }
+}
+
+dependencies {
+    implementation libs["core-ktx"]
+    implementation libs["appcompat"]
+    implementation libs["material"]
+    implementation libs["constraintlayout"]
+
+    testImplementation libs["junit"]
+    androidTestImplementation libs["junit_ext"]
+    androidTestImplementation libs["espresso_core"]
+}

@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/bases" />
             <option value="$PROJECT_DIR$/resources" />
             <option value="$PROJECT_DIR$/utils" />
+            <option value="$PROJECT_DIR$/viewCustom" />
           </set>
         </option>
       </GradleProjectSettings>

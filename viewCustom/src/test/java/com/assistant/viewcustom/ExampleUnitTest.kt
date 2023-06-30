@@ -1,4 +1,4 @@
-package com.assistant.resourses
+package com.assistant.viewcustom
 
 import org.junit.Test
 

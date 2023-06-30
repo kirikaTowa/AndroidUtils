@@ -1,4 +1,4 @@
-package com.kakusummer.sample.Dialog
+package com.kakusummer.sample.dialog
 
 import android.content.Context
 import com.assistant.bases.BaseDialog

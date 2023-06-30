@@ -142,30 +142,6 @@ object UtilsBridge {
         return ImageUtils.bitmap2Drawable(bitmap)
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // IntentUtils
-    ///////////////////////////////////////////////////////////////////////////
-    fun isIntentAvailable(intent: Intent?): Boolean {
-        return IntentUtils.isIntentAvailable(intent)
-    }
-
-    fun getDialIntent(phoneNumber: String?): Intent {
-        return IntentUtils.getDialIntent(phoneNumber!!)
-    }
-
-    @RequiresPermission(permission.CALL_PHONE)
-    fun getCallIntent(phoneNumber: String?): Intent {
-        return IntentUtils.getCallIntent(phoneNumber!!)
-    }
-
-    fun getSendSmsIntent(phoneNumber: String?, content: String?): Intent {
-        return IntentUtils.getSendSmsIntent(phoneNumber!!, content)
-    }
-
-    fun getLaunchAppDetailsSettingsIntent(pkgName: String?, isNewTask: Boolean): Intent {
-        return IntentUtils.getLaunchAppDetailsSettingsIntent(pkgName!!, isNewTask)
-    }
-
     // RomUtils
     val isSamsung: Boolean
         get() = RomUtils.isSamsung

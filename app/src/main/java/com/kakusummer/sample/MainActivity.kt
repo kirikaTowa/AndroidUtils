@@ -3,10 +3,9 @@ package com.kakusummer.sample
 import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import com.assistant.bases.BaseActivity
-import com.assistant.utils.LogUtils
 import com.kakusummer.androidutils.R
 import com.kakusummer.androidutils.databinding.ActivityMainBinding
-import com.kakusummer.sample.Dialog.TipUserPoliceDialog
+import com.kakusummer.sample.dialog.TipUserPoliceDialog
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val layoutId: Int
