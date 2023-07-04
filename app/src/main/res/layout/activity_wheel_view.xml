@@ -20,7 +20,7 @@
             android:id="@+id/horizontalWheelView"
             android:layout_width="200dp"
             android:layout_height="64dp"
-            app:activeColor="@color/black"
+            app:activeColor="#ffc107"
             app:normalColor="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

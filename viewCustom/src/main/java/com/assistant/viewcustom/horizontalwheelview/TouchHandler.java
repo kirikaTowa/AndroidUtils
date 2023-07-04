@@ -1,5 +1,9 @@
 package com.assistant.viewcustom.horizontalwheelview;
 
+import static com.assistant.viewcustom.horizontalwheelview.HorizontalWheelView.SCROLL_STATE_DRAGGING;
+import static com.assistant.viewcustom.horizontalwheelview.HorizontalWheelView.SCROLL_STATE_IDLE;
+import static com.assistant.viewcustom.horizontalwheelview.HorizontalWheelView.SCROLL_STATE_SETTLING;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
@@ -8,9 +12,6 @@ import android.view.MotionEvent;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
-import static com.assistant.viewcustom.horizontalwheelview.HorizontalWheelView.SCROLL_STATE_DRAGGING;
-import static com.assistant.viewcustom.horizontalwheelview.HorizontalWheelView.SCROLL_STATE_IDLE;
-import static com.assistant.viewcustom.horizontalwheelview.HorizontalWheelView.SCROLL_STATE_SETTLING;
 import static java.lang.Math.PI;
 
 class TouchHandler extends GestureDetector.SimpleOnGestureListener {

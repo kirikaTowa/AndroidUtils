@@ -15,10 +15,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
         super.initView()
+
 //        binding.also {
 //
 //        }
-        var tipUserDialog:TipUserPoliceDialog?=null
+/*        var tipUserDialog:TipUserPoliceDialog?=null
         tipUserDialog= TipUserPoliceDialog(this@MainActivity) {
             if (it) {
                 tipUserDialog?.dismiss()
@@ -27,7 +28,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 tipUserDialog?.dismiss()
             }
         }
-        tipUserDialog.show()
+        tipUserDialog.show()*/
+
+
+        var  c=0
+        binding.ivText.animate().translationY(10000f).setDuration(10000).start()
+        binding.tvText.setOnClickListener {
+            if (c%2==0){
+                binding.ivText.animate().cancel()
+            }else{
+                binding.ivText.animate().translationY(10000f).setDuration(10000).start()
+            }
+            c++
+        }
     }
 
     override fun initListener() {
