@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -36,14 +37,12 @@ class WebViewDemoActivity :  BaseActivity<ActivityWebViewDemoBinding>() {
                 it.settings.apply {
                     javaScriptEnabled = true // 设置支持javascript脚本
                     textSize = WebSettings.TextSize.NORMAL
-                    it.requestFocus()
                     cacheMode = WebSettings.LOAD_NO_CACHE
                     loadsImagesAutomatically = false //是否加载图片
-                    blockNetworkImage = false //把图片加载放在最后来加载渲染
-                    blockNetworkLoads = false
+                    blockNetworkImage = true //把图片加载放在最后来加载渲染
                     loadWithOverviewMode = true //自适应屏幕
                     domStorageEnabled = true //开启 DOM storage API 功能
-                    useWideViewPort = true //双击缩放屏幕
+                    useWideViewPort = true
                 }
 
 
@@ -59,6 +58,13 @@ class WebViewDemoActivity :  BaseActivity<ActivityWebViewDemoBinding>() {
 
                     override fun onPageFinished(view: WebView?, url: String?) {
                         super.onPageFinished(view, url)
+                        wbContainer.settings.apply {
+                            Log.d(TAG, "onPageFinished: ")
+                            //TODO 特殊原因不需要显示图片的可以把这个注掉
+                            loadsImagesAutomatically = true //是否加载图片
+                            blockNetworkImage = false //把图片加载放在最后来加载渲染
+                        }
+                    
                     }
 
                     override fun shouldOverrideUrlLoading(
