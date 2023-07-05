@@ -19,9 +19,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="com.kakusummer.sample.viewCustom.WheelViewActivity"
-            android:exported="false" />
-        <activity
             android:name="com.kakusummer.sample.MainActivity"
             android:exported="true">
             <intent-filter>

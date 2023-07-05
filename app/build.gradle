@@ -144,8 +144,6 @@ dependencies {
     implementation libs["immersionbar-components"]
 
     implementation 'com.guolindev.permissionx:permissionx:1.7.1'
-
-    implementation 'com.arialyy.aria:core:3.8.5'
-    annotationProcessor 'com.arialyy.aria:compiler:3.8.5'
+    implementation 'com.liulishuo.filedownloader:library:1.7.7'
 
 }

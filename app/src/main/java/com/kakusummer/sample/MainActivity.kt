@@ -1,6 +1,7 @@
 package com.kakusummer.sample
 
 import android.Manifest
+import android.R.attr.path
 import android.media.MediaPlayer
 import android.util.Log
 import com.arialyy.annotations.Download
@@ -10,48 +11,90 @@ import com.assistant.bases.BaseActivity
 import com.assistant.utils.FileUtils
 import com.kakusummer.androidutils.R
 import com.kakusummer.androidutils.databinding.ActivityMainBinding
+import com.liulishuo.filedownloader.BaseDownloadTask
+import com.liulishuo.filedownloader.FileDownloadListener
+import com.liulishuo.filedownloader.FileDownloader
 import com.permissionx.guolindev.PermissionX
 import java.io.IOException
+
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val layoutId: Int
         get() = R.layout.activity_main
     override val TAG: String
         get() = "TAG_MainActivity"
-     var taskId: Long=0
+
     private val mPlayer = MediaPlayer()
     override fun initView() {
         super.initView()
 
-//        binding.also {
-//
-//        }
-/*        var tipUserDialog:TipUserPoliceDialog?=null
-        tipUserDialog= TipUserPoliceDialog(this@MainActivity) {
-            if (it) {
-                tipUserDialog?.dismiss()
-            } else {
-                finish()
-                tipUserDialog?.dismiss()
-            }
-        }
-        tipUserDialog.show()*/
-
-
         Aria.download(this@MainActivity).register()
-        Log.d("yeTest", "initMediaPlayer: " + filesDir.absoluteFile)
+
         FileUtils.createOrExistsDir(filesDir.absoluteFile.toString() + "/voiceAnnouncements")
 
+        FileDownloader.setup(this@MainActivity)
         //不声明权限搞不下来
         PermissionX.init(this)
             .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .request { allGranted, grantedList, deniedList ->
                 if (allGranted) {
                     try {
-                        taskId= Aria.download(this@MainActivity)
-                            .load("http://queue.uat.yuantutech.com:8081/tts/92ca4140-2728-4470-a018-dd539a13d7c5.wav")
-                            .setFilePath(filesDir.absoluteFile.toString() + "/voiceAnnouncements" + "/music.wav")
-                            .create()
+                        FileDownloader.getImpl().create("http://queue.uat.yuantutech.com:8081/tts/92ca4140-2728-4470-a018-dd539a13d7c5.wav")
+                            .setPath(filesDir.absoluteFile.toString() + "/voiceAnnouncements" + "/music.wav")
+                            .setListener(object : FileDownloadListener() {
+                                override fun pending(
+                                    task: BaseDownloadTask,
+                                    soFarBytes: Int,
+                                    totalBytes: Int
+                                ) {
+                                    Log.d("yeTest", "pending: ")
+                                }
+
+                                override fun connected(
+                                    task: BaseDownloadTask,
+                                    etag: String,
+                                    isContinue: Boolean,
+                                    soFarBytes: Int,
+                                    totalBytes: Int
+                                ) {
+                                    Log.d("yeTest", "connected: ")
+                                }
+
+                                override fun progress(
+                                    task: BaseDownloadTask,
+                                    soFarBytes: Int,
+                                    totalBytes: Int
+                                ) {
+                                    Log.d("yeTest", "progress: ")
+                                }
+
+                                override fun blockComplete(task: BaseDownloadTask) {}
+                                override fun retry(
+                                    task: BaseDownloadTask,
+                                    ex: Throwable,
+                                    retryingTimes: Int,
+                                    soFarBytes: Int
+                                ) {
+                                    Log.d("yeTest", "retry: ")
+                                }
+
+                                override fun completed(task: BaseDownloadTask) {
+                                    Log.d("yeTest", "complete: ")
+                                }
+                                override fun paused(
+                                    task: BaseDownloadTask,
+                                    soFarBytes: Int,
+                                    totalBytes: Int
+                                ) {
+                                    Log.d("yeTest", "paused: ")
+                                }
+
+                                override fun error(task: BaseDownloadTask, e: Throwable) {}
+                                override fun warn(task: BaseDownloadTask) {}
+                            }).start()
+
+
+
                     } catch (e: Exception) {
                         Log.d("yeTest", "onCreate: $e")
                     }
@@ -92,48 +135,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
-    @Download.onTaskRunning
-    protected fun running(task: DownloadTask) {
-        val p = task.percent //任务进度百分比
-        val speed = task.convertSpeed //转换单位后的下载速度，单位转换需要在配置文件中打开
-        val speed1: Long = task.speed //原始byte长度速度
-        Log.d("yeTest", "running: "+speed1)
-    }
-
-    @Download.onTaskComplete
-    fun taskComplete(task: DownloadTask?) {
-        //在这里处理任务完成的状态
-        Log.d("yeTest", "running: "+task)
-    }
-
-    @Download.onTaskStart
-    fun taskonTaskStart(task: DownloadTask?) {
-        //在这里处理任务完成的状态
-        Log.d("yeTest", "下载失败taskComplete: ")
-    }
-
-    @Download.onTaskStop
-    fun taskStop(task: DownloadTask?) {
-        //在这里处理任务完成的状态
-        Log.d("yeTest", "下载失败taskComplete: ")
-    }
-
-
-
-    @Download.onTaskFail
-    fun taskFailed(task: DownloadTask?) {
-        //在这里处理任务完成的状态
-        Log.d("yeTest", "下载失败taskComplete: ")
-    }
-
-    override fun initListener() {
-        super.initListener()
-
-        //可以覆盖掉父监听
-     /*   onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                Log.d("yeTest", "handleOnBackPressed cover: ")
-            }
-        })*/
-    }
 }
