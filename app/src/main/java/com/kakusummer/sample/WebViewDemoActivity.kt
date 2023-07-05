@@ -2,10 +2,13 @@ package com.kakusummer.sample
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.assistant.bases.BaseActivity
@@ -25,8 +28,7 @@ class WebViewDemoActivity :  BaseActivity<ActivityWebViewDemoBinding>() {
 //        ImmersionBar.with(this).statusBarView(R.id.view_top)
 //            .init()
         binding.apply {
-            val url = intent.getStringExtra(WebViewDemoActivity.EXTRA_URL) ?: ""
-
+            val url =  "https://blog.csdn.net/xiyangyang8110/article/details/126345207"
 
             wbContainer.also {
                 it.loadUrl(url)
@@ -34,7 +36,7 @@ class WebViewDemoActivity :  BaseActivity<ActivityWebViewDemoBinding>() {
                 it.settings.apply {
                     javaScriptEnabled = true // 设置支持javascript脚本
                     textSize = WebSettings.TextSize.NORMAL
-                    requestFocus()
+                    it.requestFocus()
                     cacheMode = WebSettings.LOAD_NO_CACHE
                     loadsImagesAutomatically = false //是否加载图片
                     blockNetworkImage = false //把图片加载放在最后来加载渲染
@@ -45,12 +47,12 @@ class WebViewDemoActivity :  BaseActivity<ActivityWebViewDemoBinding>() {
                 }
 
 
-                webChromeClient = object : WebChromeClient() {
+                val webChromeClient = object : WebChromeClient() {
                     override fun onReceivedTitle(view: WebView, title: String) {
                         super.onReceivedTitle(view, title)
                     }
                 }
-                wvView.webViewClient = object : WebViewClient() {
+                it.webViewClient = object : WebViewClient() {
                     override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                         super.onPageStarted(view, url, favicon)
                     }
@@ -95,9 +97,9 @@ class WebViewDemoActivity :  BaseActivity<ActivityWebViewDemoBinding>() {
     override fun onDestroy() {
         super.onDestroy()
         binding.wbContainer.also {
-            clearCache(true)
-            clearHistory()
-            clearFormData()
+            it.clearCache(true)
+            it.clearHistory()
+            it.clearFormData()
         }
 
     }
