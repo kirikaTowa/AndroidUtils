@@ -16,6 +16,7 @@ class WheelViewActivity : BaseActivity<ActivityWheelViewBinding>() {
 
     override fun initView() {
         super.initView()
+        val path = filesDir.absolutePath
     }
 
     override fun initListener() {
