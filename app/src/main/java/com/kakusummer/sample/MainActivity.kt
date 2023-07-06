@@ -15,19 +15,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
         super.initView()
-//        binding.also {
-//
-//        }
-//        var tipUserDialog:TipUserPoliceDialog?=null
-//        tipUserDialog= TipUserPoliceDialog(this@MainActivity) {
-//            if (it) {
-//                tipUserDialog?.dismiss()
-//            } else {
-//                finish()
-//                tipUserDialog?.dismiss()
-//            }
-//        }
-//        tipUserDialog.show()
+        binding.also {
+
+        }
+        var tipUserDialog:TipUserPoliceDialog?=null
+        tipUserDialog= TipUserPoliceDialog(this@MainActivity) {
+            if (it) {
+                tipUserDialog?.dismiss()
+            } else {
+                finish()
+                tipUserDialog?.dismiss()
+            }
+        }
+        tipUserDialog.show()
     }
 
     override fun initListener() {
