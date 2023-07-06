@@ -9,6 +9,7 @@ import com.kakusummer.androidutils.databinding.ActivityMainBinding
 import com.liulishuo.filedownloader.BaseDownloadTask
 import com.liulishuo.filedownloader.FileDownloadListener
 import com.liulishuo.filedownloader.FileDownloader
+import java.io.File
 import java.io.IOException
 
 
@@ -21,7 +22,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val mPlayer = MediaPlayer()
     override fun initView() {
         super.initView()
-
+//        var file=File(filesDir.absoluteFile.toString() + "/voiceAnnouncements" + "/KKK.wav")
+//        FileUtils.createOrExistsFile(file)
         //操纵内部私有目录 无需声明任何权限
         FileUtils.createOrExistsDir(filesDir.absoluteFile.toString() + "/voiceAnnouncements")
         FileUtils.delete(FileUtils.getFileByPath(filesDir.absoluteFile.toString() + "/voiceAnnouncements" + "/music.wav"))
