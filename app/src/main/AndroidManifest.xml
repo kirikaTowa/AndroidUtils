@@ -12,9 +12,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidUtils"
         tools:targetApi="31">
-        <activity
-            android:name="com.kakusummer.sample.viewCustom.WheelViewActivity"
-            android:exported="false" />
+        <!-- 声明widget对应的AppWidgetProvider -->
+        <receiver android:name="com.kakusummer.sample.WidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="com.lyl.widget.UPDATE_ALL"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/xml_widget"/>
+        </receiver>
+
+        <!-- 用来计时，发送 通知桌面部件更新 -->
+        <service android:name="com.kakusummer.sample.WidgetService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APP_WIDGET_SERVICE" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name="com.kakusummer.sample.MainActivity"
             android:exported="true">
