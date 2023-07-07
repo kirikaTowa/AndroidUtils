@@ -82,8 +82,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         Log.d("yeTest", "paused: ")
                     }
 
-                    override fun error(task: BaseDownloadTask, e: Throwable) {}
-                    override fun warn(task: BaseDownloadTask) {}
+                    override fun error(task: BaseDownloadTask, e: Throwable) {
+                        Log.d("yeTest", "error: " +e)
+                    }
+                    override fun warn(task: BaseDownloadTask) {
+                        Log.d("yeTest", "error: ")
+                    }
                 }).start()
 
 
