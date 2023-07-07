@@ -25,7 +25,7 @@ class WheelViewActivity : BaseActivity<ActivityWheelViewBinding>() {
                 val text = java.lang.String.format(
                     Locale.US,
                     "%.0f°",
-                    binding.horizontalWheelView.degreesAngle
+                    binding.horizontalWheelView.degreesAngle/2
                 )
                 Log.d(TAG, "onRotationChanged x: "+text)
                 Log.d(TAG, "onRotationChanged: " + radians)

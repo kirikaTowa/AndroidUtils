@@ -27,7 +27,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 tipUserDialog?.dismiss()
             }
         }
-        tipUserDialog.show()
+        //tipUserDialog.show()
     }
 
     override fun initListener() {
