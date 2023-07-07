@@ -31,76 +31,9 @@ android {
         }
     }
 
-
-
-
-    //1、 构建变体-限定维度名
-    flavorDimensions 'dova'
-
-    //2. 构建变体-配置对应打包key
-    signingConfigs {
-//        channel1 {
-//            keyAlias 'xxx'
-//            keyPassword 'xxx'
-//            storeFile file('目录')
-//            storePassword 'xxx'
-//        }
-//
-//        channel2 {
-//            keyAlias 'exampledemoflavor'
-//            keyPassword '123456'
-//            storeFile file('ExampleDemoFlavor.jks')
-//            storePassword '123456'
-//        }
-    }
-    //3. 构建变体-支持写入buildConfigField
     buildFeatures {
         buildConfig = true
     }
-
-    //4. 构建变体-配置productFlavors
-    productFlavors {
-        channel1 {
-            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-            applicationId "com.kakusummer.androidutils1"
-            flavorDimensions 'dova'
-        }
-
-        channel2 {
-            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-            applicationId "com.kakusummer.androidutils2"
-            flavorDimensions 'dova'
-        }
-
-        productFlavors.all { flavor ->
-            flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
-        }
-
-        applicationVariants.all { variant ->
-            variant.outputs.all { output ->
-                def fileName
-                if (variant.buildType.name == "release") {
-                    fileName = "${applicationId}_${variant.name}_${defaultConfig.versionName}_release.apk"
-                } else {
-                    fileName = "${applicationId}_${variant.name}_${defaultConfig.versionName}_test.apk"
-                }
-                outputFileName = fileName
-            }
-        }
-    }
-
-    //5. 构建变体-配置sourceSets
-    sourceSets {
-        channel1 {
-            res.srcDirs = ['src/main/res']
-            //java.srcDirs = ['src/main/java']
-        }
-        channel2 {
-            res.srcDirs = ['src/channel2/res']
-            //java.srcDirs = ['src/channel2/java']
-        }
-    }
-
 
     compileOptions {
         sourceCompatibility cfg.Compatibility
