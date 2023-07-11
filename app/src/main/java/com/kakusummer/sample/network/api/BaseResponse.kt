@@ -1,4 +1,4 @@
-package com.kakusummer.network.api
+package com.kakusummer.sample.network.api
 
 import android.util.Log
 

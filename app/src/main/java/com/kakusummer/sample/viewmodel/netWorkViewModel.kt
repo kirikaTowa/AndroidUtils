@@ -1,4 +1,4 @@
-package com.dawn.kotlinbasedemo.vm
+package com.kakusummer.sample.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData

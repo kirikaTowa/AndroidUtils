@@ -4,7 +4,7 @@ import android.app.ProgressDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.assistant.bases.BaseActivity
-import com.dawn.kotlinbasedemo.vm.netWorkViewModel
+import com.kakusummer.sample.viewmodel.netWorkViewModel
 import com.kakusummer.androidutils.R
 import com.kakusummer.androidutils.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
