@@ -51,4 +51,6 @@ dependencies {
     testImplementation libs["junit"]
     androidTestImplementation libs["junit_ext"]
     androidTestImplementation libs["espresso_core"]
+
+    implementation libs["converter-gson"]
 }

@@ -1,17 +1,15 @@
 package com.assistant.utils
 
-import android.Manifest.permission
 import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
-import androidx.annotation.RequiresPermission
 import java.io.File
 import java.io.InputStream
+import java.lang.reflect.Type
 
 object UtilsBridge {
     @JvmStatic
@@ -191,5 +189,15 @@ object UtilsBridge {
     @JvmStatic
     fun uri2File(uri: Uri?): File {
         return UriUtils.uri2File(uri)
+    }
+
+    @JvmStatic
+    fun <T> fromJson(json: String?, type: Type?): T {
+        return GsonUtils.fromJson(json, type!!)
+    }
+
+    @JvmStatic
+    fun toJson(`object`: Any?): String? {
+        return GsonUtils.toJson(`object`)
     }
 }
