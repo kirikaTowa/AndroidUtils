@@ -10,7 +10,7 @@ def version_lifecycle = "2.5.1"
 def version_activity_ktx = "1.6.1"
 def version_fragment_ktx = "1.4.1"
 def version_immersion_bar = "3.2.2"
-
+def version_retrofit_gson = "2.9.0"
 
 //Android/编译配置管理
 ext {
@@ -44,5 +44,7 @@ ext {
                     "immersionbar"                : "com.geyifeng.immersionbar:immersionbar:${version_immersion_bar}",
                     "immersionbar-ktx"            : "com.geyifeng.immersionbar:immersionbar-ktx:${version_immersion_bar}",
                     "immersionbar-components"     : "com.geyifeng.immersionbar:immersionbar-components:${version_immersion_bar}",
+
+                    "converter-gson"         : "com.squareup.retrofit2:converter-gson:${version_retrofit_gson}",
     ]
 }
