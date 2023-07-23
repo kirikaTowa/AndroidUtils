@@ -5,7 +5,6 @@ import android.animation.Animator.AnimatorListener
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.animation.ValueAnimator.AnimatorUpdateListener
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.res.Resources
 import android.content.res.TypedArray
@@ -27,7 +26,10 @@ import com.assistant.viewcustom.R
 /**
  * SwitchButton.
  */
-class SwitchButton : View, Checkable {
+class SwitchButton @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr), Checkable {
+
     /**
      * 动画状态：
      * 1.静止
@@ -44,40 +46,351 @@ class SwitchButton : View, Checkable {
     private val ANIMATE_STATE_PENDING_SETTLE = 4
     private val ANIMATE_STATE_SWITCH = 5
 
-    constructor(context: Context) : super(context) {
-        init(context, null)
-    }
+    /**
+     * 阴影半径
+     */
+    private var shadowRadius = 0
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        init(context, attrs)
-    }
+    /**
+     * 阴影Y偏移px
+     */
+    private var shadowOffset = 0
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
-        init(context, attrs)
-    }
+    /**
+     * 阴影颜色
+     */
+    private var shadowColor = 0
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    constructor(
-        context: Context,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
-    ) : super(context, attrs, defStyleAttr, defStyleRes) {
-        init(context, attrs)
-    }
+    /**
+     * 背景半径
+     */
+    private var viewRadius = 0f
 
-    override fun setPadding(left: Int, top: Int, right: Int, bottom: Int) {
-        super.setPadding(0, 0, 0, 0)
+    /**
+     * 按钮半径
+     */
+    private var buttonRadius = 0f
+
+    /**
+     * 背景高
+     */
+    private var height = 0f
+
+    /**
+     * 背景宽
+     */
+    private var width = 0f
+
+    /**
+     * 背景位置
+     */
+    private var left = 0f
+    private var top = 0f
+    private var right = 0f
+    private var bottom = 0f
+    private var centerX = 0f
+    private var centerY = 0f
+
+    /**
+     * 背景底色
+     */
+    private var background = 0
+
+    /**
+     * 背景关闭颜色
+     */
+    private var uncheckColor = 0
+
+    /**
+     * 背景打开颜色
+     */
+    private var checkedColor = 0
+
+    /**
+     * 边框宽度px
+     */
+    private var borderWidth = 0
+
+    /**
+     * 打开指示线颜色
+     */
+    private var checkLineColor = 0
+
+    /**
+     * 打开指示线宽
+     */
+    private var checkLineWidth = 0
+
+    /**
+     * 打开指示线长
+     */
+    private var checkLineLength = 0f
+
+    /**
+     * 关闭圆圈颜色
+     */
+    private var uncheckCircleColor = 0
+
+    /**
+     * 关闭圆圈线宽
+     */
+    private var uncheckCircleWidth = 0
+
+    /**
+     * 关闭圆圈位移X
+     */
+    private var uncheckCircleOffsetX = 0f
+
+    /**
+     * 关闭圆圈半径
+     */
+    private var uncheckCircleRadius = 0f
+
+    /**
+     * 打开指示线位移X
+     */
+    private var checkedLineOffsetX = 0f
+
+    /**
+     * 打开指示线位移Y
+     */
+    private var checkedLineOffsetY = 0f
+
+    /**
+     * Color for button when it's uncheck
+     */
+    private var uncheckButtonColor = 0
+
+    /**
+     * Color for button when it's check
+     */
+    private var checkedButtonColor = 0
+
+    /**
+     * 按钮最左边
+     */
+    private var buttonMinX = 0f
+
+    /**
+     * 按钮最右边
+     */
+    private var buttonMaxX = 0f
+
+    /**
+     * 按钮画笔
+     */
+    private var buttonPaint: Paint? = null
+
+    /**
+     * 背景画笔
+     */
+    private var paint: Paint? = null
+
+    /**
+     * 当前状态
+     */
+    private var viewState: ViewState? = null
+    private var beforeState: ViewState? = null
+    private var afterState: ViewState? = null
+    private val rect = RectF()
+
+    /**
+     * 动画状态
+     */
+    private var animateState = ANIMATE_STATE_NONE
+
+    /**
+     *
+     */
+    private var valueAnimator: ValueAnimator? = null
+    private val argbEvaluator = ArgbEvaluator()
+
+    /**
+     * 是否选中
+     */
+    private var isChecked = false
+
+    /**
+     * 是否启用动画
+     */
+    private var enableEffect = false
+
+    /**
+     * 是否启用阴影效果
+     */
+    private var shadowEffect = false
+
+    /**
+     * 是否显示指示器
+     */
+    private var showIndicator = false
+
+    /**
+     * 收拾是否按下
+     */
+    private var isTouchingDown = false
+
+    /**
+     *
+     */
+    private var isUiInited = false
+
+    /**
+     *
+     */
+    private var isEventBroadcast = false
+    private var onCheckedChangeListener: OnCheckedChangeListener? = null
+
+
+    private val animatorUpdateListener: AnimatorUpdateListener = object : AnimatorUpdateListener {
+        override fun onAnimationUpdate(animation: ValueAnimator) {
+            val value = animation.animatedValue as Float
+            when (animateState) {
+                ANIMATE_STATE_PENDING_SETTLE -> {
+                    run {}
+                    run {}
+                    run {
+                        viewState!!.checkedLineColor = argbEvaluator.evaluate(
+                            value,
+                            beforeState!!.checkedLineColor,
+                            afterState!!.checkedLineColor
+                        ) as Int
+                        viewState!!.radius = (beforeState!!.radius
+                                + (afterState!!.radius - beforeState!!.radius) * value)
+                        if (animateState != ANIMATE_STATE_PENDING_DRAG) {
+                            viewState!!.buttonX = (beforeState!!.buttonX
+                                    + (afterState!!.buttonX - beforeState!!.buttonX) * value)
+                        }
+                        viewState!!.checkStateColor = argbEvaluator.evaluate(
+                            value,
+                            beforeState!!.checkStateColor,
+                            afterState!!.checkStateColor
+                        ) as Int
+                    }
+                }
+
+                ANIMATE_STATE_PENDING_RESET -> {
+                    run {}
+                    run {
+                        viewState!!.checkedLineColor = argbEvaluator.evaluate(
+                            value,
+                            beforeState!!.checkedLineColor,
+                            afterState!!.checkedLineColor
+                        ) as Int
+                        viewState!!.radius = (beforeState!!.radius
+                                + (afterState!!.radius - beforeState!!.radius) * value)
+                        if (animateState != ANIMATE_STATE_PENDING_DRAG) {
+                            viewState!!.buttonX = (beforeState!!.buttonX
+                                    + (afterState!!.buttonX - beforeState!!.buttonX) * value)
+                        }
+                        viewState!!.checkStateColor = argbEvaluator.evaluate(
+                            value,
+                            beforeState!!.checkStateColor,
+                            afterState!!.checkStateColor
+                        ) as Int
+                    }
+                }
+
+                ANIMATE_STATE_PENDING_DRAG -> {
+                    viewState!!.checkedLineColor = argbEvaluator.evaluate(
+                        value,
+                        beforeState!!.checkedLineColor,
+                        afterState!!.checkedLineColor
+                    ) as Int
+                    viewState!!.radius = (beforeState!!.radius
+                            + (afterState!!.radius - beforeState!!.radius) * value)
+                    if (animateState != ANIMATE_STATE_PENDING_DRAG) {
+                        viewState!!.buttonX = (beforeState!!.buttonX
+                                + (afterState!!.buttonX - beforeState!!.buttonX) * value)
+                    }
+                    viewState!!.checkStateColor = argbEvaluator.evaluate(
+                        value,
+                        beforeState!!.checkStateColor,
+                        afterState!!.checkStateColor
+                    ) as Int
+                }
+
+                ANIMATE_STATE_SWITCH -> {
+                    viewState?.buttonX = (beforeState!!.buttonX
+                            + (afterState!!.buttonX - beforeState!!.buttonX) * value)
+                    val fraction = (viewState!!.buttonX - buttonMinX) / (buttonMaxX - buttonMinX)
+                    viewState?.checkStateColor = argbEvaluator.evaluate(
+                        fraction,
+                        uncheckColor,
+                        checkedColor
+                    ) as Int
+                    viewState?.radius = fraction * viewRadius
+                    viewState?.checkedLineColor = argbEvaluator.evaluate(
+                        fraction,
+                        Color.TRANSPARENT,
+                        checkLineColor
+                    ) as Int
+                }
+
+                ANIMATE_STATE_DRAGING -> {
+                    run {}
+                    run {}
+                }
+
+                ANIMATE_STATE_NONE -> {}
+                else -> {
+                    run {}
+                    run {}
+                }
+            }
+            postInvalidate()
+        }
+    }
+    private val animatorListener: AnimatorListener = object : AnimatorListener {
+        override fun onAnimationStart(animation: Animator) {}
+        override fun onAnimationEnd(animation: Animator) {
+            when (animateState) {
+                ANIMATE_STATE_DRAGING -> {}
+                ANIMATE_STATE_PENDING_DRAG -> {
+                    animateState = ANIMATE_STATE_DRAGING
+                    viewState?.checkedLineColor = Color.TRANSPARENT
+                    viewState?.radius = viewRadius
+                    postInvalidate()
+                }
+
+                ANIMATE_STATE_PENDING_RESET -> {
+                    animateState = ANIMATE_STATE_NONE
+                    postInvalidate()
+                }
+
+                ANIMATE_STATE_PENDING_SETTLE -> {
+                    animateState = ANIMATE_STATE_NONE
+                    postInvalidate()
+                    broadcastEvent()
+                }
+
+                ANIMATE_STATE_SWITCH -> {
+                    isChecked = !isChecked
+                    animateState = ANIMATE_STATE_NONE
+                    postInvalidate()
+                    broadcastEvent()
+                }
+
+                ANIMATE_STATE_NONE -> {}
+                else -> {}
+            }
+        }
+
+        override fun onAnimationCancel(animation: Animator) {}
+        override fun onAnimationRepeat(animation: Animator) {}
     }
 
     /**
-     * 初始化参数
+     * 手势按下的时刻
      */
-    private fun init(context: Context, attrs: AttributeSet?) {
+    private var touchDownTime: Long = 0
+    private val postPendingDrag = Runnable {
+        if (!isInAnimating) {
+            pendingDragState()
+        }
+    }
+
+    init {
         var typedArray: TypedArray? = null
         if (attrs != null) {
             typedArray = context.obtainStyledAttributes(attrs, R.styleable.SwitchButton)
@@ -207,7 +520,11 @@ class SwitchButton : View, Checkable {
         super.setClickable(true)
         setPadding(0, 0, 0, 0)
         setLayerType(LAYER_TYPE_SOFTWARE, null)
+    }
 
+
+    override fun setPadding(left: Int, top: Int, right: Int, bottom: Int) {
+        super.setPadding(0, 0, 0, 0)
     }
 
     override fun onMeasure(widthMeasureSpecParam: Int, heightMeasureSpecParam: Int) {
@@ -750,349 +1067,7 @@ class SwitchButton : View, Checkable {
     interface OnCheckedChangeListener {
         fun onCheckedChanged(view: SwitchButton?, isChecked: Boolean)
     }
-    /** */
-    /**
-     * 阴影半径
-     */
-    private var shadowRadius = 0
 
-    /**
-     * 阴影Y偏移px
-     */
-    private var shadowOffset = 0
-
-    /**
-     * 阴影颜色
-     */
-    private var shadowColor = 0
-
-    /**
-     * 背景半径
-     */
-    private var viewRadius = 0f
-
-    /**
-     * 按钮半径
-     */
-    private var buttonRadius = 0f
-
-    /**
-     * 背景高
-     */
-    private var height = 0f
-
-    /**
-     * 背景宽
-     */
-    private var width = 0f
-
-    /**
-     * 背景位置
-     */
-    private var left = 0f
-    private var top = 0f
-    private var right = 0f
-    private var bottom = 0f
-    private var centerX = 0f
-    private var centerY = 0f
-
-    /**
-     * 背景底色
-     */
-    private var background = 0
-
-    /**
-     * 背景关闭颜色
-     */
-    private var uncheckColor = 0
-
-    /**
-     * 背景打开颜色
-     */
-    private var checkedColor = 0
-
-    /**
-     * 边框宽度px
-     */
-    private var borderWidth = 0
-
-    /**
-     * 打开指示线颜色
-     */
-    private var checkLineColor = 0
-
-    /**
-     * 打开指示线宽
-     */
-    private var checkLineWidth = 0
-
-    /**
-     * 打开指示线长
-     */
-    private var checkLineLength = 0f
-
-    /**
-     * 关闭圆圈颜色
-     */
-    private var uncheckCircleColor = 0
-
-    /**
-     * 关闭圆圈线宽
-     */
-    private var uncheckCircleWidth = 0
-
-    /**
-     * 关闭圆圈位移X
-     */
-    private var uncheckCircleOffsetX = 0f
-
-    /**
-     * 关闭圆圈半径
-     */
-    private var uncheckCircleRadius = 0f
-
-    /**
-     * 打开指示线位移X
-     */
-    private var checkedLineOffsetX = 0f
-
-    /**
-     * 打开指示线位移Y
-     */
-    private var checkedLineOffsetY = 0f
-
-    /**
-     * Color for button when it's uncheck
-     */
-    private var uncheckButtonColor = 0
-
-    /**
-     * Color for button when it's check
-     */
-    private var checkedButtonColor = 0
-
-    /**
-     * 按钮最左边
-     */
-    private var buttonMinX = 0f
-
-    /**
-     * 按钮最右边
-     */
-    private var buttonMaxX = 0f
-
-    /**
-     * 按钮画笔
-     */
-    private var buttonPaint: Paint? = null
-
-    /**
-     * 背景画笔
-     */
-    private var paint: Paint? = null
-
-    /**
-     * 当前状态
-     */
-    private var viewState: ViewState? = null
-    private var beforeState: ViewState? = null
-    private var afterState: ViewState? = null
-    private val rect = RectF()
-
-    /**
-     * 动画状态
-     */
-    private var animateState = ANIMATE_STATE_NONE
-
-    /**
-     *
-     */
-    private var valueAnimator: ValueAnimator? = null
-    private val argbEvaluator = ArgbEvaluator()
-
-    /**
-     * 是否选中
-     */
-    private var isChecked = false
-
-    /**
-     * 是否启用动画
-     */
-    private var enableEffect = false
-
-    /**
-     * 是否启用阴影效果
-     */
-    private var shadowEffect = false
-
-    /**
-     * 是否显示指示器
-     */
-    private var showIndicator = false
-
-    /**
-     * 收拾是否按下
-     */
-    private var isTouchingDown = false
-
-    /**
-     *
-     */
-    private var isUiInited = false
-
-    /**
-     *
-     */
-    private var isEventBroadcast = false
-    private var onCheckedChangeListener: OnCheckedChangeListener? = null
-
-    /**
-     * 手势按下的时刻
-     */
-    private var touchDownTime: Long = 0
-    private val postPendingDrag = Runnable {
-        if (!isInAnimating) {
-            pendingDragState()
-        }
-    }
-    private val animatorUpdateListener: AnimatorUpdateListener = object : AnimatorUpdateListener {
-        override fun onAnimationUpdate(animation: ValueAnimator) {
-            val value = animation.animatedValue as Float
-            when (animateState) {
-                ANIMATE_STATE_PENDING_SETTLE -> {
-                    run {}
-                    run {}
-                    run {
-                        viewState!!.checkedLineColor = argbEvaluator.evaluate(
-                            value,
-                            beforeState!!.checkedLineColor,
-                            afterState!!.checkedLineColor
-                        ) as Int
-                        viewState!!.radius = (beforeState!!.radius
-                                + (afterState!!.radius - beforeState!!.radius) * value)
-                        if (animateState != ANIMATE_STATE_PENDING_DRAG) {
-                            viewState!!.buttonX = (beforeState!!.buttonX
-                                    + (afterState!!.buttonX - beforeState!!.buttonX) * value)
-                        }
-                        viewState!!.checkStateColor = argbEvaluator.evaluate(
-                            value,
-                            beforeState!!.checkStateColor,
-                            afterState!!.checkStateColor
-                        ) as Int
-                    }
-                }
-
-                ANIMATE_STATE_PENDING_RESET -> {
-                    run {}
-                    run {
-                        viewState!!.checkedLineColor = argbEvaluator.evaluate(
-                            value,
-                            beforeState!!.checkedLineColor,
-                            afterState!!.checkedLineColor
-                        ) as Int
-                        viewState!!.radius = (beforeState!!.radius
-                                + (afterState!!.radius - beforeState!!.radius) * value)
-                        if (animateState != ANIMATE_STATE_PENDING_DRAG) {
-                            viewState!!.buttonX = (beforeState!!.buttonX
-                                    + (afterState!!.buttonX - beforeState!!.buttonX) * value)
-                        }
-                        viewState!!.checkStateColor = argbEvaluator.evaluate(
-                            value,
-                            beforeState!!.checkStateColor,
-                            afterState!!.checkStateColor
-                        ) as Int
-                    }
-                }
-
-                ANIMATE_STATE_PENDING_DRAG -> {
-                    viewState!!.checkedLineColor = argbEvaluator.evaluate(
-                        value,
-                        beforeState!!.checkedLineColor,
-                        afterState!!.checkedLineColor
-                    ) as Int
-                    viewState!!.radius = (beforeState!!.radius
-                            + (afterState!!.radius - beforeState!!.radius) * value)
-                    if (animateState != ANIMATE_STATE_PENDING_DRAG) {
-                        viewState!!.buttonX = (beforeState!!.buttonX
-                                + (afterState!!.buttonX - beforeState!!.buttonX) * value)
-                    }
-                    viewState!!.checkStateColor = argbEvaluator.evaluate(
-                        value,
-                        beforeState!!.checkStateColor,
-                        afterState!!.checkStateColor
-                    ) as Int
-                }
-
-                ANIMATE_STATE_SWITCH -> {
-                    viewState?.buttonX = (beforeState!!.buttonX
-                            + (afterState!!.buttonX - beforeState!!.buttonX) * value)
-                    val fraction = (viewState!!.buttonX - buttonMinX) / (buttonMaxX - buttonMinX)
-                    viewState?.checkStateColor = argbEvaluator.evaluate(
-                        fraction,
-                        uncheckColor,
-                        checkedColor
-                    ) as Int
-                    viewState?.radius = fraction * viewRadius
-                    viewState?.checkedLineColor = argbEvaluator.evaluate(
-                        fraction,
-                        Color.TRANSPARENT,
-                        checkLineColor
-                    ) as Int
-                }
-
-                ANIMATE_STATE_DRAGING -> {
-                    run {}
-                    run {}
-                }
-
-                ANIMATE_STATE_NONE -> {}
-                else -> {
-                    run {}
-                    run {}
-                }
-            }
-            postInvalidate()
-        }
-    }
-    private val animatorListener: AnimatorListener = object : AnimatorListener {
-        override fun onAnimationStart(animation: Animator) {}
-        override fun onAnimationEnd(animation: Animator) {
-            when (animateState) {
-                ANIMATE_STATE_DRAGING -> {}
-                ANIMATE_STATE_PENDING_DRAG -> {
-                    animateState = ANIMATE_STATE_DRAGING
-                    viewState?.checkedLineColor = Color.TRANSPARENT
-                    viewState?.radius = viewRadius
-                    postInvalidate()
-                }
-
-                ANIMATE_STATE_PENDING_RESET -> {
-                    animateState = ANIMATE_STATE_NONE
-                    postInvalidate()
-                }
-
-                ANIMATE_STATE_PENDING_SETTLE -> {
-                    animateState = ANIMATE_STATE_NONE
-                    postInvalidate()
-                    broadcastEvent()
-                }
-
-                ANIMATE_STATE_SWITCH -> {
-                    isChecked = !isChecked
-                    animateState = ANIMATE_STATE_NONE
-                    postInvalidate()
-                    broadcastEvent()
-                }
-
-                ANIMATE_STATE_NONE -> {}
-                else -> {}
-            }
-        }
-
-        override fun onAnimationCancel(animation: Animator) {}
-        override fun onAnimationRepeat(animation: Animator) {}
-    }
-    /** */
     /**
      * 保存动画状态
      */
