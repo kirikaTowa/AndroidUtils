@@ -2,6 +2,7 @@ package com.assistant.viewcustom.progress
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -13,10 +14,12 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import com.assistant.viewcustom.R
 import kotlin.math.floor
 
-class ProgressDigitalSeek @JvmOverloads constructor(
-    context: Context?,
+@SuppressLint("Recycle")
+class ProgressDigitalSeekBar @JvmOverloads constructor(
+    context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) :
@@ -30,13 +33,13 @@ class ProgressDigitalSeek @JvmOverloads constructor(
      * 目标进度条绘测路线
      * 目标进度
      */
-    private var mPathProgressBg: Path? = null
-    private var mPathProgressFg: Path? = null
-    private val mColorProgressBg = Color.GRAY
-    private val mColorProgressFg = Color.BLUE
-    private val mProgressHeight = 5f
-    private var mPathMeasure: PathMeasure? = null
-    private var mProgress = 0.5f
+    private var pathProgressBg: Path? = null
+    private var pathProgressFg: Path? = null
+    private var colorProgressBg = Color.GRAY
+    private var colorProgressFg = Color.BLUE
+    private var heightProgress = 5f
+    private var measurePath: PathMeasure? = null
+    private var progress = 0.5f
 
 
     /**
@@ -44,9 +47,9 @@ class ProgressDigitalSeek @JvmOverloads constructor(
      * 绘制显示进度的圆角矩形的画笔
      * 绘制显示进度文字的画笔
      */
-    private var mPaintProgress: Paint? = null
-    private var mPaintRoundRect: Paint? = null
-    private var mPaintProgressText: Paint? = null
+    private var paintProgress: Paint? = null
+    private var paintRoundRect: Paint? = null
+    private var paintText: Paint? = null
 
 
     /**
@@ -60,51 +63,70 @@ class ProgressDigitalSeek @JvmOverloads constructor(
      * 进度的文字与圆角矩形水平方向的边距
      * 绘制的文字的最大值（用于确定显示进度的矩形的宽高）
      */
-    private val mColorSeekGg = Color.WHITE
-    private val mRoundRectRadius = 10f
-    private var mProgressRoundRectF: RectF? = null
-    private val mTextSize = 30f
-    private var mFontMetricsInt: FontMetricsInt? = null
-    private val mColorProgressText = Color.BLUE
-    private val mProgressStrMarginV = 5f
-    private val mProgressStrMarginH = 10f
-    private val mProgressMaxText = "100%"
+    private var colorRectBg = Color.WHITE
+    private var radiusRect = 10f
+    private var rectFRect: RectF? = null
+    private var sizeText = 30f
+    private var fontMetricsInt: FontMetricsInt? = null
+    private var colorText = Color.BLUE
+    private var marginTextV = 5f
+    private var marginTextH = 10f
+    private val rateMaxText = "100%"
 
 
     init {
+        //读取属性
+        var typedArray: TypedArray? = null
+        if (attrs != null) {
+            typedArray = context.obtainStyledAttributes(attrs, R.styleable.ProgressDigitalSeekBar)
+        }
+
+        typedArray?.apply {
+            colorProgressBg= getColor(R.styleable.ProgressDigitalSeekBar_sk_colorProgressBg, colorProgressBg)
+            colorProgressFg= getColor(R.styleable.ProgressDigitalSeekBar_sk_colorProgressFg, colorProgressFg)
+            heightProgress= getDimension(R.styleable.ProgressDigitalSeekBar_sk_heightProgress, heightProgress)
+            colorRectBg= getColor(R.styleable.ProgressDigitalSeekBar_sk_colorRectBg, colorRectBg)
+            radiusRect= getDimension(R.styleable.ProgressDigitalSeekBar_sk_radiusRect, radiusRect)
+            sizeText= getDimension(R.styleable.ProgressDigitalSeekBar_sk_sizeText, sizeText)
+            colorText= getColor(R.styleable.ProgressDigitalSeekBar_sk_colorText, colorText)
+            marginTextV= getDimension(R.styleable.ProgressDigitalSeekBar_sk_marginTextV, marginTextV)
+            marginTextH= getDimension(R.styleable.ProgressDigitalSeekBar_sk_marginTextH, marginTextH)
+        }
+
+
         //声明进度条画笔  背景和前景两条线都靠这个实现
-        mPaintProgress = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        paintProgress = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             isAntiAlias = true
             strokeCap = Paint.Cap.ROUND //设置线头为圆角
             style = Paint.Style.STROKE //设置绘制样式为线条
             strokeJoin = Paint.Join.ROUND //设置拐角为圆角
-            strokeWidth = mProgressHeight
+            strokeWidth = heightProgress
         }
 
         //声明右端矩形画笔
-        mPaintRoundRect = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        paintRoundRect = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             isAntiAlias = true
             style = Paint.Style.FILL
-            color = mColorSeekGg
+            color = colorRectBg
         }
 
         //声明右端矩文字画笔
-        mPaintProgressText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        paintText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             isAntiAlias = true
             strokeWidth = 1f
             style = Paint.Style.FILL
-            color = mColorProgressText
-            textSize = mTextSize //设置字体大小
+            color = colorText
+            textSize = sizeText //设置字体大小
             textAlign = Paint.Align.CENTER //将文字水平居中
         }
 
         //获取文字画笔的字体属性
-        mFontMetricsInt = mPaintProgressText!!.fontMetricsInt
+        fontMetricsInt = paintText!!.fontMetricsInt
 
         //声明前景和背景线
-        mPathProgressBg = Path()
-        mPathProgressFg = Path()
-        mPathMeasure = PathMeasure()
+        pathProgressBg = Path()
+        pathProgressFg = Path()
+        measurePath = PathMeasure()
     }
 
 
@@ -118,12 +140,12 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         //进度条绘制在控件中央,宽度为控件宽度(mProgressHeight/2是为了显示出左右两边的圆角)
-        mPathProgressBg?.also {
-            it.moveTo(mProgressHeight / 2, h / 2f)
-            it.lineTo(w - mProgressHeight / 2, h / 2f)
+        pathProgressBg?.also {
+            it.moveTo(heightProgress / 2, h / 2f)
+            it.lineTo(w - heightProgress / 2, h / 2f)
         }
         //将进度条路径设置给PathMeasure
-        mPathMeasure!!.setPath(mPathProgressBg, false)
+        measurePath!!.setPath(pathProgressBg, false)
         invalidate()
     }
 
@@ -188,7 +210,7 @@ class ProgressDigitalSeek @JvmOverloads constructor(
             s
         } else {
             //自适应模式，返回所需的最小高度
-            (mTextSize + mProgressStrMarginV * 2).toInt()
+            (sizeText + marginTextV * 2).toInt()
         }
     }
 
@@ -200,26 +222,26 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     //内部使用
     private fun updateOnTouch(event: MotionEvent) {
         //计算滑动后的进度
-        val progress = event.x / mPathMeasure!!.length
+        val progress = event.x / measurePath!!.length
         //重绘
         updateProgress(progress, true)
     }
 
     //设置进度及刷新
     private fun updateProgress(progress: Float, fromUser: Boolean) {
-        mProgress = progress
+        this.progress = progress
         //重刷后
         invalidate()
     }
 
     private fun drawShowProgressRoundRect(canvas: Canvas) {
-        var stop = mPathMeasure!!.length * mProgress //计算进度条的进度
+        var stop = measurePath!!.length * progress //计算进度条的进度
         //根据要绘制的文字的最大长宽来计算要绘制的圆角矩形的长宽
         val rect = Rect()
-        mPaintProgressText!!.getTextBounds(mProgressMaxText, 0, mProgressMaxText.length, rect)
+        paintText!!.getTextBounds(rateMaxText, 0, rateMaxText.length, rect)
         //要绘制矩形的宽、高
-        val rectWidth = rect.width() + mProgressStrMarginH * 2
-        val rectHeight = rect.height() + mProgressStrMarginV * 2
+        val rectWidth = rect.width() + marginTextH * 2
+        val rectHeight = rect.height() + marginTextV * 2
         //计算边界值（为了不让矩形在左右两边超出边界）
         if (stop < rectWidth / 2f) {
             stop = rectWidth / 2f
@@ -231,44 +253,44 @@ class ProgressDigitalSeek @JvmOverloads constructor(
         val right = stop + rectWidth / 2f
         val top = height / 2f - rectHeight / 2f
         val bottom = height / 2f + rectHeight / 2f
-        mProgressRoundRectF = RectF(left, top, right, bottom)
+        rectFRect = RectF(left, top, right, bottom)
         //绘制为圆角矩形
         canvas.drawRoundRect(
-            mProgressRoundRectF!!, mRoundRectRadius, mRoundRectRadius,
-            mPaintRoundRect!!
+            rectFRect!!, radiusRect, radiusRect,
+            paintRoundRect!!
         )
     }
 
     private fun drawProgressText(canvas: Canvas) {
-        val progressText = floor((100 * mProgress).toDouble()).toInt().toString() + "%"
+        val progressText = floor((100 * progress).toDouble()).toInt().toString() + "%"
         //让文字垂直居中的偏移
         val offsetY =
-            (mFontMetricsInt!!.bottom - mFontMetricsInt!!.ascent) / 2 - mFontMetricsInt!!.bottom
+            (fontMetricsInt!!.bottom - fontMetricsInt!!.ascent) / 2 - fontMetricsInt!!.bottom
         //将文字绘制在矩形的中央
         canvas.drawText(
             progressText,
-            mProgressRoundRectF!!.centerX(),
-            mProgressRoundRectF!!.centerY() + offsetY,
-            mPaintProgressText!!
+            rectFRect!!.centerX(),
+            rectFRect!!.centerY() + offsetY,
+            paintText!!
         )
     }
 
     private fun drawProgress(canvas: Canvas) {
-        mPathProgressFg!!.reset()
-        mPaintProgress?.also {
+        pathProgressFg!!.reset()
+        paintProgress?.also {
             //计算进度条的进度
-            val stop = mPathMeasure!!.length * mProgress
+            val stop = measurePath!!.length * progress
 
             //绘制背景色 俩叠一块可能过度绘制 目前问题不大
             //mPathMeasure!!.getSegment(stop, 1F, mPathProgressBg, true)
-            it.color = mColorProgressBg
-            canvas.drawPath(mPathProgressBg!!, it)
+            it.color = colorProgressBg
+            canvas.drawPath(pathProgressBg!!, it)
 
             //绘制进度条前景色
             // 得到与进度对应的路径 mPathMeasure.getSegment(startD, stopD, mDstPath, true); : 根据传入的起始值和终止值（相当于要截取路径的部分），将路径赋值给mDstPath
-            mPathMeasure!!.getSegment(0F, stop, mPathProgressFg, true)
-            it.color = mColorProgressFg
-            canvas.drawPath(mPathProgressFg!!, it)
+            measurePath!!.getSegment(0F, stop, pathProgressFg, true)
+            it.color = colorProgressFg
+            canvas.drawPath(pathProgressFg!!, it)
         }
     }
 }

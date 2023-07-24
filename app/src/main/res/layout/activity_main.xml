@@ -25,8 +25,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <com.assistant.viewcustom.progress.ProgressDigitalSeek
+        <!--app:sk_colorProgressFg="#DC143C"-->
+        <!--android:layout_height="@dimen/dp_100"   设置响应区域大小-->
+        <com.assistant.viewcustom.progress.ProgressDigitalSeekBar
             android:id="@+id/pgs_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
