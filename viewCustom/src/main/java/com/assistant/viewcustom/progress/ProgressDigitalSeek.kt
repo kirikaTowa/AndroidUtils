@@ -38,11 +38,11 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     private val mProgressHeight = 5f
     private var mPathMeasure: PathMeasure? = null
     //进度条背景
-    private val mColorProgressBg = Color.BLACK
+    private val mColorProgressBg = Color.GRAY
     //进度条前景
-    private val mColorProgressFg = Color.RED
+    private val mColorProgressFg = Color.BLUE
     //拖拽的圆角矩形的背景颜色
-    private val mColorSeekGg = Color.RED
+    private val mColorSeekGg = Color.TRANSPARENT
     //进度条进度
     private var mProgress = 0.5f
     //进度条文字大小
@@ -50,7 +50,7 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     //用于获取画笔绘制文字的参数
     private var mFontMetricsInt: FontMetricsInt? = null
     //绘制文字的颜色
-    private val mColorProgressText = Color.WHITE
+    private val mColorProgressText =Color.BLUE
     //显示进度的文字与显示进度的圆角矩形垂直方向的边距
     private val mProgressStrMarginV = 10f
     //显示进度的文字与显示进度的圆角矩形水平方向的边距
@@ -65,7 +65,7 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     private val mProgressMaxText = "100%"
 
     init {
-        setLayerType(LAYER_TYPE_SOFTWARE, null)
+        //声明进度条画笔  背景和前景两条线都靠这个实现
         mPaintProgress = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             strokeCap = Paint.Cap.ROUND //设置线头为圆角
             style = Paint.Style.STROKE //设置绘制样式为线条
@@ -73,11 +73,13 @@ class ProgressDigitalSeek @JvmOverloads constructor(
             strokeWidth = mProgressHeight
         }
 
+        //声明右端矩形画笔
         mPaintRoundRect = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.FILL
             color = mColorSeekGg
         }
 
+        //声明右端矩文字画笔
         mPaintProgressText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             strokeWidth = 1f
             style = Paint.Style.FILL
@@ -86,7 +88,10 @@ class ProgressDigitalSeek @JvmOverloads constructor(
             textAlign = Paint.Align.CENTER //将文字水平居中
         }
 
+        //获取文字画笔的字体属性
         mFontMetricsInt = mPaintProgressText!!.fontMetricsInt
+
+        //声明前景和背景线
         mPathProgressBg = Path()
         mPathProgressFg = Path()
         mPathMeasure = PathMeasure()
@@ -237,15 +242,19 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     private fun drawProgress(canvas: Canvas) {
         mPathProgressFg!!.reset()
         mPaintProgress?.also {
+            //两个color的设置不能删除
             it.color = mColorProgressBg
             //绘制进度背景
             canvas.drawPath(mPathProgressBg!!, it)
+
+
+
             //计算进度条的进度
             val stop = mPathMeasure!!.length * mProgress
             //得到与进度对应的路径
             mPathMeasure!!.getSegment(0f, stop, mPathProgressFg, true)
             it.color = mColorProgressFg
-            //绘制进度
+            //绘制进度条前景色
             canvas.drawPath(mPathProgressFg!!, it)
         }
     }
