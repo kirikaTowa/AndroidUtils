@@ -21,60 +21,55 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) :
     View(context, attrs, defStyleAttr) {
-    //进度条背景路径
+    /**
+     * 进度条背景路径
+     * 进度条前景路径
+     * 进度条背景
+     * 进度条前景
+     * 进度条高度
+     * 目标进度条绘测路线
+     * 目标进度
+     */
     private var mPathProgressBg: Path? = null
-
-    //进度条前景路径
     private var mPathProgressFg: Path? = null
-
-    //绘制进度条的画笔
-    private var mPaintProgress: Paint? = null
-
-    //绘制显示进度的圆角矩形的画笔
-    private var mPaintRoundRect: Paint? = null
-
-    //绘制显示进度文字的画笔
-    private var mPaintProgressText: Paint? = null
-
-    //进度条高度
+    private val mColorProgressBg = Color.GRAY
+    private val mColorProgressFg = Color.BLUE
     private val mProgressHeight = 5f
     private var mPathMeasure: PathMeasure? = null
-
-    //进度条背景
-    private val mColorProgressBg = Color.GRAY
-
-    //进度条前景
-    private val mColorProgressFg = Color.BLUE
-
-    //拖拽的圆角矩形的背景颜色
-    private val mColorSeekGg = Color.WHITE
-
-    //进度条进度
     private var mProgress = 0.5f
 
-    //进度条文字大小
-    private val mTextSize = 30f
 
-    //用于获取画笔绘制文字的参数
-    private var mFontMetricsInt: FontMetricsInt? = null
+    /**
+     * 绘制进度条的画笔
+     * 绘制显示进度的圆角矩形的画笔
+     * 绘制显示进度文字的画笔
+     */
+    private var mPaintProgress: Paint? = null
+    private var mPaintRoundRect: Paint? = null
+    private var mPaintProgressText: Paint? = null
 
-    //绘制文字的颜色
-    private val mColorProgressText = Color.BLUE
 
-    //显示进度的文字与显示进度的圆角矩形垂直方向的边距
-    private val mProgressStrMarginV = 5f
-
-    //显示进度的文字与显示进度的圆角矩形水平方向的边距
-    private val mProgressStrMarginH = 10f
-
-    //圆角矩形的圆角半径
+    /**
+     * 拖拽的圆角矩形的背景颜色
+     * 圆角矩形的圆角半径
+     * 显示进度的圆角矩形
+     * 进度条文字大小
+     * 获取画笔绘制文字的参数
+     * 绘制文字的颜色
+     * 进度的文字与圆角矩形垂直方向的边距
+     * 进度的文字与圆角矩形水平方向的边距
+     * 绘制的文字的最大值（用于确定显示进度的矩形的宽高）
+     */
+    private val mColorSeekGg = Color.WHITE
     private val mRoundRectRadius = 10f
-
-    //显示进度的圆角矩形（用于判断手指触摸的点是否在它的内部）
     private var mProgressRoundRectF: RectF? = null
-
-    //绘制的文字的最大值（用于确定显示进度的矩形的宽高）
+    private val mTextSize = 30f
+    private var mFontMetricsInt: FontMetricsInt? = null
+    private val mColorProgressText = Color.BLUE
+    private val mProgressStrMarginV = 5f
+    private val mProgressStrMarginH = 10f
     private val mProgressMaxText = "100%"
+
 
     init {
         //声明进度条画笔  背景和前景两条线都靠这个实现
