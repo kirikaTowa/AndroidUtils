@@ -5,6 +5,7 @@ import androidx.activity.OnBackPressedCallback
 import com.assistant.bases.BaseActivity
 import com.kakusummer.androidutils.R
 import com.kakusummer.androidutils.databinding.ActivityMainBinding
+import com.kakusummer.sample.dialog.ProgressHomeDialog
 import com.kakusummer.sample.dialog.TipUserPoliceDialog
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -15,26 +16,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
         super.initView()
-        binding.also {
-
-        }
-        var tipUserDialog:TipUserPoliceDialog?=null
-        tipUserDialog= TipUserPoliceDialog(this@MainActivity) {
-            if (it) {
-                tipUserDialog?.dismiss()
-            } else {
-                finish()
-                tipUserDialog?.dismiss()
+        binding.apply {
+            tvHello.setOnClickListener {
+                pgsBar.setProgress(0.7F)
             }
         }
-        //tipUserDialog.show()
+        var progressDialog:ProgressHomeDialog?=null
+        progressDialog= ProgressHomeDialog(this@MainActivity) {
+        }
+        progressDialog.show()
     }
 
     override fun initListener() {
         super.initListener()
-        binding.ivNumberProgress.setOnClickListener {
-            binding.ivNumberProgress.startDownLoad()
-        }
 //        //可以覆盖掉父监听
 //        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
 //            override fun handleOnBackPressed() {
