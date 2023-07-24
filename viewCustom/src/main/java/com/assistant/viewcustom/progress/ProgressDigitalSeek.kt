@@ -11,10 +11,8 @@ import android.graphics.PathMeasure
 import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.SeekBar
 import kotlin.math.floor
 
 class ProgressDigitalSeek @JvmOverloads constructor(
@@ -52,9 +50,9 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     //绘制文字的颜色
     private val mColorProgressText =Color.BLUE
     //显示进度的文字与显示进度的圆角矩形垂直方向的边距
-    private val mProgressStrMarginV = 10f
+    private val mProgressStrMarginV = 5f
     //显示进度的文字与显示进度的圆角矩形水平方向的边距
-    private val mProgressStrMarginH = 20f
+    private val mProgressStrMarginH = 10f
     //圆角矩形的圆角半径
     private val mRoundRectRadius = 10f
     //显示进度的圆角矩形（用于判断手指触摸的点是否在它的内部）
@@ -110,7 +108,6 @@ class ProgressDigitalSeek @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        Log.d("yeTest", "onSizeChanged: ")
         //进度条绘制在控件中央,宽度为控件宽度(mProgressHeight/2是为了显示出左右两边的圆角)
         mPathProgressBg?.also {
             it.moveTo(mProgressHeight / 2, h / 2f)
@@ -133,41 +130,59 @@ class ProgressDigitalSeek @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.action) {
-            MotionEvent.ACTION_DOWN ->                 //判断手指是否触摸了显示进度的圆角矩形块，这样才可以拖拽
-                if (mProgressRoundRectF != null && mProgressRoundRectF!!.contains(
-                        event.x,
-                        event.y
-                    )
-                ) {
-                    //记录手指刚接触屏幕的X轴坐标（因为只需要在X轴上平移）
-                    mStartTouchX = event.x
-                    mIsTouchSeek = true
-                }
+        //如果打开了手势监听
+        if (true){
+            this.parent.requestDisallowInterceptTouchEvent(true)
 
-            MotionEvent.ACTION_MOVE -> if (mIsTouchSeek) {
-                //计算横向移动的距离
-                val moveX = event.x - mStartTouchX
-                //计算出当前进度的X轴所显示的进度长度
-                val currentProgressWidth = mPathMeasure!!.length * mProgress //计算进度条的进度
-                //计算滑动后的X轴的坐标
-                var showProgressWidth = currentProgressWidth + moveX
-                //计算边界值
-                if (showProgressWidth < 0) {
-                    showProgressWidth = 0f
-                } else if (showProgressWidth > mPathMeasure!!.length) {
-                    showProgressWidth = mPathMeasure!!.length
+
+            when (event.action) {
+                MotionEvent.ACTION_DOWN ->                 //判断手指是否触摸了显示进度的圆角矩形块，这样才可以拖拽
+                    if (mProgressRoundRectF != null && mProgressRoundRectF!!.contains(
+                            event.x,
+                            event.y
+                        )
+                    ) {
+                        //记录手指刚接触屏幕的X轴坐标（因为只需要在X轴上平移）
+                        isPressed = true
+                        mStartTouchX = event.x
+                        mIsTouchSeek = true
+                    }
+
+                MotionEvent.ACTION_MOVE -> if (mIsTouchSeek) {
+                    isPressed = true
+                    //计算横向移动的距离
+                    val moveX = event.x - mStartTouchX
+                    //计算出当前进度的X轴所显示的进度长度
+                    val currentProgressWidth = mPathMeasure!!.length * mProgress //计算进度条的进度
+                    //计算滑动后的X轴的坐标
+                    var showProgressWidth = currentProgressWidth + moveX
+                    //计算边界值
+                    if (showProgressWidth < 0) {
+                        showProgressWidth = 0f
+                    } else if (showProgressWidth > mPathMeasure!!.length) {
+                        showProgressWidth = mPathMeasure!!.length
+                    }
+                    //计算滑动后的进度
+                    mProgress = showProgressWidth / mPathMeasure!!.length
+                    //重绘
+                    invalidate()
+                    //刷新用于计算移动的X轴坐标
+                    mStartTouchX = event.x
                 }
-                //计算滑动后的进度
-                mProgress = showProgressWidth / mPathMeasure!!.length
-                //重绘
-                invalidate()
-                //刷新用于计算移动的X轴坐标
-                mStartTouchX = event.x
+                MotionEvent.ACTION_UP -> {
+                    this.parent.requestDisallowInterceptTouchEvent(false)
+                    mIsTouchSeek = false
+                    isPressed = false
+                }
+                MotionEvent.ACTION_CANCEL->{
+                    isPressed = false
+                    mIsTouchSeek = false
+                    this.parent.requestDisallowInterceptTouchEvent(false)
+                }
             }
-            MotionEvent.ACTION_UP -> mIsTouchSeek = false
+            return mIsTouchSeek
         }
-        return mIsTouchSeek
+        return false
     }
 
     //计算宽度
