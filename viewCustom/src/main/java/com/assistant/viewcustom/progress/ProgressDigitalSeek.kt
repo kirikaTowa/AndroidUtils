@@ -42,7 +42,7 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     //进度条前景
     private val mColorProgressFg = Color.BLUE
     //拖拽的圆角矩形的背景颜色
-    private val mColorSeekGg = Color.TRANSPARENT
+    private val mColorSeekGg = Color.WHITE
     //进度条进度
     private var mProgress = 0.5f
     //进度条文字大小
@@ -67,6 +67,7 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     init {
         //声明进度条画笔  背景和前景两条线都靠这个实现
         mPaintProgress = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            isAntiAlias = true
             strokeCap = Paint.Cap.ROUND //设置线头为圆角
             style = Paint.Style.STROKE //设置绘制样式为线条
             strokeJoin = Paint.Join.ROUND //设置拐角为圆角
@@ -75,12 +76,14 @@ class ProgressDigitalSeek @JvmOverloads constructor(
 
         //声明右端矩形画笔
         mPaintRoundRect = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            isAntiAlias = true
             style = Paint.Style.FILL
             color = mColorSeekGg
         }
 
         //声明右端矩文字画笔
         mPaintProgressText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            isAntiAlias = true
             strokeWidth = 1f
             style = Paint.Style.FILL
             color = mColorProgressText
@@ -198,20 +201,6 @@ class ProgressDigitalSeek @JvmOverloads constructor(
         invalidate()
     }
 
-    private fun drawProgressText(canvas: Canvas) {
-        val progressText = floor((100 * mProgress).toDouble()).toInt().toString() + "%"
-        //让文字垂直居中的偏移
-        val offsetY =
-            (mFontMetricsInt!!.bottom - mFontMetricsInt!!.ascent) / 2 - mFontMetricsInt!!.bottom
-        //将文字绘制在矩形的中央
-        canvas.drawText(
-            progressText,
-            mProgressRoundRectF!!.centerX(),
-            mProgressRoundRectF!!.centerY() + offsetY,
-            mPaintProgressText!!
-        )
-    }
-
     private fun drawShowProgressRoundRect(canvas: Canvas) {
         var stop = mPathMeasure!!.length * mProgress //计算进度条的进度
         //根据要绘制的文字的最大长宽来计算要绘制的圆角矩形的长宽
@@ -239,22 +228,36 @@ class ProgressDigitalSeek @JvmOverloads constructor(
         )
     }
 
+    private fun drawProgressText(canvas: Canvas) {
+        val progressText = floor((100 * mProgress).toDouble()).toInt().toString() + "%"
+        //让文字垂直居中的偏移
+        val offsetY =
+            (mFontMetricsInt!!.bottom - mFontMetricsInt!!.ascent) / 2 - mFontMetricsInt!!.bottom
+        //将文字绘制在矩形的中央
+        canvas.drawText(
+            progressText,
+            mProgressRoundRectF!!.centerX(),
+            mProgressRoundRectF!!.centerY() + offsetY,
+            mPaintProgressText!!
+        )
+    }
+
     private fun drawProgress(canvas: Canvas) {
         mPathProgressFg!!.reset()
         mPaintProgress?.also {
-            //两个color的设置不能删除
-            it.color = mColorProgressBg
-            //绘制进度背景
-            canvas.drawPath(mPathProgressBg!!, it)
-
-
-
             //计算进度条的进度
             val stop = mPathMeasure!!.length * mProgress
-            //得到与进度对应的路径
-            mPathMeasure!!.getSegment(0f, stop, mPathProgressFg, true)
-            it.color = mColorProgressFg
+
+
+            //绘制背景色 俩叠一块可能过度绘制 目前问题不大
+            //mPathMeasure!!.getSegment(stop, 1F, mPathProgressBg, true)
+            it.color = mColorProgressBg
+            canvas.drawPath(mPathProgressBg!!, it)
+
             //绘制进度条前景色
+            // 得到与进度对应的路径 mPathMeasure.getSegment(startD, stopD, mDstPath, true); : 根据传入的起始值和终止值（相当于要截取路径的部分），将路径赋值给mDstPath
+            mPathMeasure!!.getSegment(0F, stop, mPathProgressFg, true)
+            it.color = mColorProgressFg
             canvas.drawPath(mPathProgressFg!!, it)
         }
     }
