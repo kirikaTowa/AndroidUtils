@@ -24,14 +24,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.kakusummer.sample.viewCustom.NumberProgressView
-            android:id="@+id/iv_numberProgress"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <com.assistant.viewcustom.progress.ProgressDigitalSeek
             android:layout_width="match_parent"

@@ -22,7 +22,7 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) :
-    SeekBar(context, attrs, defStyleAttr) {
+    View(context, attrs, defStyleAttr) {
     //进度条背景路径
     private var mPathProgressBg: Path? = null
     //进度条前景路径
@@ -100,29 +100,6 @@ class ProgressDigitalSeek @JvmOverloads constructor(
         )
     }
 
-    //计算宽度
-    private fun measureSizeWidth(size: Int): Int {
-        val mode = MeasureSpec.getMode(size)
-        val s = MeasureSpec.getSize(size)
-        return if (mode == MeasureSpec.EXACTLY) {
-            s
-        } else {
-            s.coerceAtMost(200)
-        }
-    }
-
-    //计算高度
-    private fun measureSizeHeight(size: Int): Int {
-        val mode = MeasureSpec.getMode(size)
-        val s = MeasureSpec.getSize(size)
-        return if (mode == MeasureSpec.EXACTLY) {
-            s
-        } else {
-            //自适应模式，返回所需的最小高度
-            (mTextSize + mProgressStrMarginV * 2).toInt()
-        }
-    }
-
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         Log.d("yeTest", "onSizeChanged: ")
@@ -134,6 +111,16 @@ class ProgressDigitalSeek @JvmOverloads constructor(
         //将进度条路径设置给PathMeasure
         mPathMeasure!!.setPath(mPathProgressBg, false)
         invalidate()
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        //绘制进度条
+        drawProgress(canvas)
+        //绘制进度显示的圆角矩形
+        drawShowProgressRoundRect(canvas)
+        //绘制进度
+        drawProgressText(canvas)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -175,22 +162,35 @@ class ProgressDigitalSeek @JvmOverloads constructor(
         return mIsTouchSeek
     }
 
+    //计算宽度
+    private fun measureSizeWidth(size: Int): Int {
+        val mode = MeasureSpec.getMode(size)
+        val s = MeasureSpec.getSize(size)
+        return if (mode == MeasureSpec.EXACTLY) {
+            s
+        } else {
+            s.coerceAtMost(200)
+        }
+    }
+
+    //计算高度
+    private fun measureSizeHeight(size: Int): Int {
+        val mode = MeasureSpec.getMode(size)
+        val s = MeasureSpec.getSize(size)
+        return if (mode == MeasureSpec.EXACTLY) {
+            s
+        } else {
+            //自适应模式，返回所需的最小高度
+            (mTextSize + mProgressStrMarginV * 2).toInt()
+        }
+    }
+
     /**
      * 设置进度
      */
     fun setProgress(progress: Float) {
         mProgress = progress
         invalidate()
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        //绘制进度条
-        drawProgress(canvas)
-        //绘制进度显示的圆角矩形
-        drawShowProgressRoundRect(canvas)
-        //绘制进度
-        drawProgressText(canvas)
     }
 
     private fun drawProgressText(canvas: Canvas) {

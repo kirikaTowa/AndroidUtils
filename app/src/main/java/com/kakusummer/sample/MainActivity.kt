@@ -32,9 +32,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initListener() {
         super.initListener()
-        binding.ivNumberProgress.setOnClickListener {
-            binding.ivNumberProgress.startDownLoad()
-        }
 //        //可以覆盖掉父监听
 //        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
 //            override fun handleOnBackPressed() {
