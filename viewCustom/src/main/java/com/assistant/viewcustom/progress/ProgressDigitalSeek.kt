@@ -23,42 +23,56 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     View(context, attrs, defStyleAttr) {
     //进度条背景路径
     private var mPathProgressBg: Path? = null
+
     //进度条前景路径
     private var mPathProgressFg: Path? = null
+
     //绘制进度条的画笔
     private var mPaintProgress: Paint? = null
+
     //绘制显示进度的圆角矩形的画笔
     private var mPaintRoundRect: Paint? = null
+
     //绘制显示进度文字的画笔
     private var mPaintProgressText: Paint? = null
 
     //进度条高度
     private val mProgressHeight = 5f
     private var mPathMeasure: PathMeasure? = null
+
     //进度条背景
     private val mColorProgressBg = Color.GRAY
+
     //进度条前景
     private val mColorProgressFg = Color.BLUE
+
     //拖拽的圆角矩形的背景颜色
     private val mColorSeekGg = Color.WHITE
+
     //进度条进度
     private var mProgress = 0.5f
+
     //进度条文字大小
     private val mTextSize = 30f
+
     //用于获取画笔绘制文字的参数
     private var mFontMetricsInt: FontMetricsInt? = null
+
     //绘制文字的颜色
-    private val mColorProgressText =Color.BLUE
+    private val mColorProgressText = Color.BLUE
+
     //显示进度的文字与显示进度的圆角矩形垂直方向的边距
     private val mProgressStrMarginV = 5f
+
     //显示进度的文字与显示进度的圆角矩形水平方向的边距
     private val mProgressStrMarginH = 10f
+
     //圆角矩形的圆角半径
     private val mRoundRectRadius = 10f
+
     //显示进度的圆角矩形（用于判断手指触摸的点是否在它的内部）
     private var mProgressRoundRectF: RectF? = null
-    private var mIsTouchSeek = false
-    private var mStartTouchX = 0f
+
     //绘制的文字的最大值（用于确定显示进度的矩形的宽高）
     private val mProgressMaxText = "100%"
 
@@ -131,56 +145,31 @@ class ProgressDigitalSeek @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         //如果打开了手势监听
-        if (true){
+        if (true) {
             this.parent.requestDisallowInterceptTouchEvent(true)
 
-
             when (event.action) {
-                MotionEvent.ACTION_DOWN ->                 //判断手指是否触摸了显示进度的圆角矩形块，这样才可以拖拽
-                    if (mProgressRoundRectF != null && mProgressRoundRectF!!.contains(
-                            event.x,
-                            event.y
-                        )
-                    ) {
-                        //记录手指刚接触屏幕的X轴坐标（因为只需要在X轴上平移）
-                        isPressed = true
-                        mStartTouchX = event.x
-                        mIsTouchSeek = true
-                    }
-
-                MotionEvent.ACTION_MOVE -> if (mIsTouchSeek) {
-                    isPressed = true
-                    //计算横向移动的距离
-                    val moveX = event.x - mStartTouchX
-                    //计算出当前进度的X轴所显示的进度长度
-                    val currentProgressWidth = mPathMeasure!!.length * mProgress //计算进度条的进度
-                    //计算滑动后的X轴的坐标
-                    var showProgressWidth = currentProgressWidth + moveX
-                    //计算边界值
-                    if (showProgressWidth < 0) {
-                        showProgressWidth = 0f
-                    } else if (showProgressWidth > mPathMeasure!!.length) {
-                        showProgressWidth = mPathMeasure!!.length
-                    }
-                    //计算滑动后的进度
-                    mProgress = showProgressWidth / mPathMeasure!!.length
-                    //重绘
-                    invalidate()
-                    //刷新用于计算移动的X轴坐标
-                    mStartTouchX = event.x
+                //ACTION_DOWN和ACTION_MOVE抽一个共同调用的方法，根据x算  可以做到
+                MotionEvent.ACTION_DOWN -> {
+                    updateOnTouch(event)
                 }
+
+                MotionEvent.ACTION_MOVE -> {
+                    //计算横向移动的距离
+                    updateOnTouch(event)
+                }
+
                 MotionEvent.ACTION_UP -> {
                     this.parent.requestDisallowInterceptTouchEvent(false)
-                    mIsTouchSeek = false
-                    isPressed = false
+
                 }
-                MotionEvent.ACTION_CANCEL->{
-                    isPressed = false
-                    mIsTouchSeek = false
+
+                MotionEvent.ACTION_CANCEL -> {
+
                     this.parent.requestDisallowInterceptTouchEvent(false)
                 }
             }
-            return mIsTouchSeek
+            return true
         }
         return false
     }
@@ -208,11 +197,23 @@ class ProgressDigitalSeek @JvmOverloads constructor(
         }
     }
 
-    /**
-     * 设置进度
-     */
+    //供外界调用
     fun setProgress(progress: Float) {
+        updateProgress(progress, false)
+    }
+
+    //内部使用
+    private fun updateOnTouch(event: MotionEvent) {
+        //计算滑动后的进度
+        val progress = event.x / mPathMeasure!!.length
+        //重绘
+        updateProgress(progress, true)
+    }
+
+    //设置进度及刷新
+    private fun updateProgress(progress: Float, fromUser: Boolean) {
         mProgress = progress
+        //重刷后
         invalidate()
     }
 
@@ -262,7 +263,6 @@ class ProgressDigitalSeek @JvmOverloads constructor(
         mPaintProgress?.also {
             //计算进度条的进度
             val stop = mPathMeasure!!.length * mProgress
-
 
             //绘制背景色 俩叠一块可能过度绘制 目前问题不大
             //mPathMeasure!!.getSegment(stop, 1F, mPathProgressBg, true)

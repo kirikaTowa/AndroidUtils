@@ -15,8 +15,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
         super.initView()
-        binding.also {
-
+        binding.apply {
+            tvHello.setOnClickListener {
+                pgsBar.setProgress(0.7F)
+            }
         }
         var tipUserDialog:TipUserPoliceDialog?=null
         tipUserDialog= TipUserPoliceDialog(this@MainActivity) {
