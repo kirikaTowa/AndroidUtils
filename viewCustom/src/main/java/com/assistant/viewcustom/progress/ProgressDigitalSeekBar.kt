@@ -237,11 +237,6 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
             event.x / measurePath!!.length
         }
 
-        //重绘
-        Log.d("yeTest", "测试updateOnTouch: " + event.x)
-        Log.d("yeTest", "测试updateOnTouch: " + measurePath!!.length)
-        Log.d("yeTest", "测试updateOnTouch: " + positionX)
-
         updateProgress(positionX, true)
     }
 
@@ -282,7 +277,6 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
     private fun drawProgressText(canvas: Canvas) {
         //向下取整
         val progressText = floor((100 * progressDigital).toDouble()).toInt().toString() + "%"
-        Log.d("yeTest", "测试  drawProgressText: " + progressText)
         //让文字垂直居中的偏移
         val offsetY =
             (fontMetricsInt!!.bottom - fontMetricsInt!!.ascent) / 2 - fontMetricsInt!!.bottom
