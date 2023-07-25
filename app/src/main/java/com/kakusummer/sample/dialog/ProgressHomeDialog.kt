@@ -2,13 +2,18 @@ package com.kakusummer.sample.dialog
 
 import android.content.Context
 import com.assistant.bases.BaseDialog
+import com.assistant.viewcustom.progress.ProgressDigitalSeekBar
 import com.kakusummer.androidutils.R
 import com.kakusummer.androidutils.databinding.DialogProgressHomeBinding
 import com.kakusummer.androidutils.databinding.DialogStatementBinding
 
 
 class ProgressHomeDialog
-    (context: Context?, var callback: ((Boolean) -> Unit)?) :
+    (
+    context: Context?,
+    var callbackWidth: ((Float) -> Unit)?,
+    var callbackDepth: ((Float) -> Unit)?
+) :
     BaseDialog<DialogProgressHomeBinding>(context!!) {
 
 
@@ -25,10 +30,53 @@ class ProgressHomeDialog
 
     //View的事件
     override fun initViewEvent() {
-        //设置对话框那个叉叉的方法，点击关闭对话框
         binding.apply {
+            pgsWidth.also {
+                it.setProgress((2 - AppSpUtils.getWeightScaling()) * 2)
+                it.setOnSeekChangeListener(object : ProgressDigitalSeekBar.OnSeekChangeListener {
+                    override fun onProgressChanged(
+                        view: ProgressDigitalSeekBar?,
+                        progress: Float,
+                        fromUser: Boolean
+                    ) {
+                        if (fromUser) {
+                            callbackWidth?.invoke(progress)
+                        }
+                    }
 
+                    override fun onStartTrackingTouch(view: ProgressDigitalSeekBar?) {
+                    }
 
+                    override fun onStopTrackingTouch(view: ProgressDigitalSeekBar?) {
+                        AppSpUtils.saveWeightScaling(MainActivity.weightScaling)
+                    }
+
+                })
+            }
+
+            pgsDepth.also {
+                it.setProgress(AppSpUtils.getDeepScaling())
+                it.setOnSeekChangeListener(object : ProgressDigitalSeekBar.OnSeekChangeListener {
+                    override fun onProgressChanged(
+                        view: ProgressDigitalSeekBar?,
+                        progress: Float,
+                        fromUser: Boolean
+                    ) {
+                        if (fromUser) {
+                            callbackDepth?.invoke(progress)
+                        }
+                    }
+
+                    override fun onStartTrackingTouch(view: ProgressDigitalSeekBar?) {
+                    }
+
+                    override fun onStopTrackingTouch(view: ProgressDigitalSeekBar?) {
+                        AppSpUtils.saveDeepScaling(MainActivity.scaleScaling)
+                    }
+
+                })
+            }
         }
+
     }
 }
