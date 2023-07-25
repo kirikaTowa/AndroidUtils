@@ -191,11 +191,13 @@ object UtilsBridge {
         return UriUtils.uri2File(uri)
     }
 
+    //把Json转为某个类型
     @JvmStatic
     fun <T> fromJson(json: String?, type: Type?): T {
         return GsonUtils.fromJson(json, type!!)
     }
 
+    //把某个类型转为Json
     @JvmStatic
     fun toJson(`object`: Any?): String? {
         return GsonUtils.toJson(`object`)

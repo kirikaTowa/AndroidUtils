@@ -12,7 +12,6 @@ import android.graphics.PathMeasure
 import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.assistant.viewcustom.R
@@ -76,6 +75,18 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
     private val rateMaxText = "100%"
     private var canSeek = true
 
+    private var mOnSeekArcChangeListener: OnSeekChangeListener? = null
+
+
+    fun setOnSeekChangeListener(listener: OnSeekChangeListener) {
+        this.mOnSeekArcChangeListener = listener
+    }
+
+    interface OnSeekChangeListener {
+        fun onProgressChanged(view: ProgressDigitalSeekBar?, progress: Float, fromUser: Boolean)
+        fun onStartTrackingTouch(view: ProgressDigitalSeekBar?)
+        fun onStopTrackingTouch(view: ProgressDigitalSeekBar?)
+    }
 
     init {
         //读取属性
@@ -176,6 +187,9 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
                 //ACTION_DOWN和ACTION_MOVE抽一个共同调用的方法，根据x算  可以做到
                 MotionEvent.ACTION_DOWN -> {
                     updateOnTouch(event)
+                    if (mOnSeekArcChangeListener != null) {
+                        mOnSeekArcChangeListener!!.onStartTrackingTouch(this)
+                    }
                 }
 
                 MotionEvent.ACTION_MOVE -> {
@@ -185,12 +199,17 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
 
                 MotionEvent.ACTION_UP -> {
                     this.parent.requestDisallowInterceptTouchEvent(false)
+                    if (mOnSeekArcChangeListener != null) {
+                        mOnSeekArcChangeListener!!.onStopTrackingTouch(this)
+                    }
 
                 }
 
                 MotionEvent.ACTION_CANCEL -> {
-
                     this.parent.requestDisallowInterceptTouchEvent(false)
+                    if (mOnSeekArcChangeListener != null) {
+                        mOnSeekArcChangeListener!!.onStopTrackingTouch(this)
+                    }
                 }
             }
             return true
@@ -237,17 +256,15 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
             event.x / measurePath!!.length
         }
 
-        //重绘
-        Log.d("yeTest", "测试updateOnTouch: " + event.x)
-        Log.d("yeTest", "测试updateOnTouch: " + measurePath!!.length)
-        Log.d("yeTest", "测试updateOnTouch: " + positionX)
-
         updateProgress(positionX, true)
     }
 
     //设置进度及刷新
     private fun updateProgress(progress: Float, fromUser: Boolean) {
         this.progressDigital = progress
+        if (mOnSeekArcChangeListener != null) {
+            mOnSeekArcChangeListener!!.onProgressChanged(this, progress, fromUser)
+        }
         //重刷后
         invalidate()
     }
@@ -281,16 +298,14 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
 
     private fun drawProgressText(canvas: Canvas) {
         //向下取整
-        val progressText = floor((100 * progressDigital).toDouble()).toInt().toString() + "%"
-        Log.d("yeTest", "测试  drawProgressText: " + progressText)
+        //val progressText =
         //让文字垂直居中的偏移
-        val offsetY =
-            (fontMetricsInt!!.bottom - fontMetricsInt!!.ascent) / 2 - fontMetricsInt!!.bottom
+        //val offsetY = (fontMetricsInt!!.bottom - fontMetricsInt!!.ascent) / 2 - fontMetricsInt!!.bottom
         //将文字绘制在矩形的中央
         canvas.drawText(
-            progressText,
+            floor((100 * progressDigital).toDouble()).toInt().toString() + "%",
             rectFRect!!.centerX(),
-            rectFRect!!.centerY() + offsetY,
+            rectFRect!!.centerY() + (fontMetricsInt!!.bottom - fontMetricsInt!!.ascent) / 2 - fontMetricsInt!!.bottom,
             paintText!!
         )
     }
@@ -299,7 +314,7 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
         pathProgressFg!!.reset()
         paintProgress?.also {
             //计算进度条的进度
-            val stop = measurePath!!.length * progressDigital
+            //val stop = measurePath!!.length * progressDigital
 
             //绘制背景色 俩叠一块可能过度绘制 目前问题不大
             //mPathMeasure!!.getSegment(stop, 1F, mPathProgressBg, true)
@@ -308,7 +323,12 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
 
             //绘制进度条前景色
             // 得到与进度对应的路径 mPathMeasure.getSegment(startD, stopD, mDstPath, true); : 根据传入的起始值和终止值（相当于要截取路径的部分），将路径赋值给mDstPath
-            measurePath!!.getSegment(0F, stop, pathProgressFg, true)
+            measurePath!!.getSegment(
+                0F,
+                measurePath!!.length * progressDigital,
+                pathProgressFg,
+                true
+            )
             it.color = colorProgressFg
             canvas.drawPath(pathProgressFg!!, it)
         }

@@ -9,7 +9,20 @@ def libs = rootProject.ext.dependencies // 库依赖
 android {
     namespace 'com.kakusummer.androidutils'
     compileSdk cfg.compileSdk
-
+    signingConfigs {
+        config {
+            keyPassword 'xxxx'
+            storeFile file('../keyStore/xx')
+            keyAlias 'xxxx'
+            storePassword 'xxx'
+        }
+        releaseConfig {
+            storeFile file("../keyStore/xx")
+            storePassword "xxxx"
+            keyAlias "xxx"
+            keyPassword "xxxxx"
+        }
+    }
     defaultConfig {
         applicationId "com.kakusummer.androidutils"
         minSdk cfg.minSdk

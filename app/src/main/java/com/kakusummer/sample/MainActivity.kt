@@ -20,11 +20,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             tvHello.setOnClickListener {
                 pgsBar.setProgress(0.7F)
             }
+
+            val progressDialog = ProgressHomeDialog(this@MainActivity,
+                callbackWidth = {
+                },
+                callbackDepth = {
+                })
+            progressDialog.show()
         }
-        var progressDialog:ProgressHomeDialog?=null
-        progressDialog= ProgressHomeDialog(this@MainActivity) {
-        }
-        progressDialog.show()
+
+
+
     }
 
     override fun initListener() {
