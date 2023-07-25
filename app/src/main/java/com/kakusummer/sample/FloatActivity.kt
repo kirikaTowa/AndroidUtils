@@ -42,25 +42,21 @@ class FloatActivity : BaseActivity<ActivityFloatBinding>() {
     private fun switchMenu(isOpen: Boolean) {
         val startRadius = dpToPixel(if (isOpen) 120 else 0)
         val endRadius = dpToPixel(if (isOpen) 0 else 120)
-        val anim = ValueAnimator.ofInt(startRadius, endRadius)
-        anim.duration = 300
-        //if (isOpen){
-            anim.interpolator = OvershootInterpolator(6F)/*
-        }else{
-            anim.interpolator = BounceInterpolator()
-        }*/
 
-        anim.addUpdateListener { valueAnimator ->
-            val radius: Int = valueAnimator.animatedValue as Int
-            menuViews.forEach { view ->
-                val lp = view.layoutParams as ConstraintLayout.LayoutParams
-                lp.circleRadius = radius
-                view.layoutParams = lp
+        //定义类一个int的变化范围
+        ValueAnimator.ofInt(startRadius, endRadius).apply {
+            duration = 300
+            interpolator = OvershootInterpolator(6F)
+            //对该 ValueAnimator的变化监听，通过回调的valueAnimator.animatedValue取值
+            addUpdateListener { valueAnimator ->
+                menuViews.forEach { view ->
+                    val lp = view.layoutParams as ConstraintLayout.LayoutParams
+                    lp.circleRadius = valueAnimator.animatedValue as Int
+                    view.layoutParams = lp
+                }
             }
-        }
-        anim.start()
+        }.start()
     }
-
 
 
     fun Context.dpToPixel(dp: Int): Int {
