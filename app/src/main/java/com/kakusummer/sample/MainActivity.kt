@@ -5,6 +5,7 @@ import androidx.activity.OnBackPressedCallback
 import com.assistant.bases.BaseActivity
 import com.kakusummer.androidutils.R
 import com.kakusummer.androidutils.databinding.ActivityMainBinding
+import com.kakusummer.sample.dialog.ProgressHomeDialog
 import com.kakusummer.sample.dialog.TipUserPoliceDialog
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -20,16 +21,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 pgsBar.setProgress(0.7F)
             }
         }
-        var tipUserDialog:TipUserPoliceDialog?=null
-        tipUserDialog= TipUserPoliceDialog(this@MainActivity) {
-            if (it) {
-                tipUserDialog?.dismiss()
-            } else {
-                finish()
-                tipUserDialog?.dismiss()
-            }
+        var progressDialog:ProgressHomeDialog?=null
+        progressDialog= ProgressHomeDialog(this@MainActivity) {
         }
-        //tipUserDialog.show()
+        progressDialog.show()
     }
 
     override fun initListener() {

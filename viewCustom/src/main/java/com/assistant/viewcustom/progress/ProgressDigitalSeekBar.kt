@@ -12,6 +12,7 @@ import android.graphics.PathMeasure
 import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.assistant.viewcustom.R
@@ -39,7 +40,7 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
     private var colorProgressFg = Color.BLUE
     private var heightProgress = 5f
     private var measurePath: PathMeasure? = null
-    private var progress = 0.5f
+    private var progressDigital = 0.5f
 
 
     /**
@@ -62,6 +63,7 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
      * 进度的文字与圆角矩形垂直方向的边距
      * 进度的文字与圆角矩形水平方向的边距
      * 绘制的文字的最大值（用于确定显示进度的矩形的宽高）
+     * 是否支持拖动
      */
     private var colorRectBg = Color.WHITE
     private var radiusRect = 10f
@@ -69,9 +71,10 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
     private var sizeText = 30f
     private var fontMetricsInt: FontMetricsInt? = null
     private var colorText = Color.BLUE
-    private var marginTextV = 5f
-    private var marginTextH = 10f
+    private var marginTextV = 8f
+    private var marginTextH = 8f
     private val rateMaxText = "100%"
+    private var canSeek = true
 
 
     init {
@@ -82,15 +85,19 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
         }
 
         typedArray?.apply {
-            colorProgressBg= getColor(R.styleable.ProgressDigitalSeekBar_sk_colorProgressBg, colorProgressBg)
-            colorProgressFg= getColor(R.styleable.ProgressDigitalSeekBar_sk_colorProgressFg, colorProgressFg)
-            heightProgress= getDimension(R.styleable.ProgressDigitalSeekBar_sk_heightProgress, heightProgress)
-            colorRectBg= getColor(R.styleable.ProgressDigitalSeekBar_sk_colorRectBg, colorRectBg)
-            radiusRect= getDimension(R.styleable.ProgressDigitalSeekBar_sk_radiusRect, radiusRect)
-            sizeText= getDimension(R.styleable.ProgressDigitalSeekBar_sk_sizeText, sizeText)
-            colorText= getColor(R.styleable.ProgressDigitalSeekBar_sk_colorText, colorText)
-            marginTextV= getDimension(R.styleable.ProgressDigitalSeekBar_sk_marginTextV, marginTextV)
-            marginTextH= getDimension(R.styleable.ProgressDigitalSeekBar_sk_marginTextH, marginTextH)
+            colorProgressBg =
+                getColor(R.styleable.ProgressDigitalSeekBar_sk_colorProgressBg, colorProgressBg)
+            colorProgressFg =
+                getColor(R.styleable.ProgressDigitalSeekBar_sk_colorProgressFg, colorProgressFg)
+            heightProgress =
+                getDimension(R.styleable.ProgressDigitalSeekBar_sk_heightProgress, heightProgress)
+            colorRectBg = getColor(R.styleable.ProgressDigitalSeekBar_sk_colorRectBg, colorRectBg)
+            radiusRect = getDimension(R.styleable.ProgressDigitalSeekBar_sk_radiusRect, radiusRect)
+            sizeText = getDimension(R.styleable.ProgressDigitalSeekBar_sk_sizeText, sizeText)
+            colorText = getColor(R.styleable.ProgressDigitalSeekBar_sk_colorText, colorText)
+            marginTextV =
+                getDimension(R.styleable.ProgressDigitalSeekBar_sk_marginTextV, marginTextV)
+            canSeek = getBoolean(R.styleable.ProgressDigitalSeekBar_sk_canSeek, canSeek)
         }
 
 
@@ -162,7 +169,7 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         //如果打开了手势监听
-        if (true) {
+        if (canSeek) {
             this.parent.requestDisallowInterceptTouchEvent(true)
 
             when (event.action) {
@@ -222,20 +229,31 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
     //内部使用
     private fun updateOnTouch(event: MotionEvent) {
         //计算滑动后的进度
-        val progress = event.x / measurePath!!.length
+        val positionX: Float = if (event.x > measurePath!!.length) {
+            1F
+        } else if (event.x < 0) {
+            0F
+        } else {
+            event.x / measurePath!!.length
+        }
+
         //重绘
-        updateProgress(progress, true)
+        Log.d("yeTest", "测试updateOnTouch: " + event.x)
+        Log.d("yeTest", "测试updateOnTouch: " + measurePath!!.length)
+        Log.d("yeTest", "测试updateOnTouch: " + positionX)
+
+        updateProgress(positionX, true)
     }
 
     //设置进度及刷新
     private fun updateProgress(progress: Float, fromUser: Boolean) {
-        this.progress = progress
+        this.progressDigital = progress
         //重刷后
         invalidate()
     }
 
     private fun drawShowProgressRoundRect(canvas: Canvas) {
-        var stop = measurePath!!.length * progress //计算进度条的进度
+        var stop = measurePath!!.length * progressDigital //计算进度条的进度
         //根据要绘制的文字的最大长宽来计算要绘制的圆角矩形的长宽
         val rect = Rect()
         paintText!!.getTextBounds(rateMaxText, 0, rateMaxText.length, rect)
@@ -262,7 +280,9 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
     }
 
     private fun drawProgressText(canvas: Canvas) {
-        val progressText = floor((100 * progress).toDouble()).toInt().toString() + "%"
+        //向下取整
+        val progressText = floor((100 * progressDigital).toDouble()).toInt().toString() + "%"
+        Log.d("yeTest", "测试  drawProgressText: " + progressText)
         //让文字垂直居中的偏移
         val offsetY =
             (fontMetricsInt!!.bottom - fontMetricsInt!!.ascent) / 2 - fontMetricsInt!!.bottom
@@ -279,7 +299,7 @@ class ProgressDigitalSeekBar @JvmOverloads constructor(
         pathProgressFg!!.reset()
         paintProgress?.also {
             //计算进度条的进度
-            val stop = measurePath!!.length * progress
+            val stop = measurePath!!.length * progressDigital
 
             //绘制背景色 俩叠一块可能过度绘制 目前问题不大
             //mPathMeasure!!.getSegment(stop, 1F, mPathProgressBg, true)

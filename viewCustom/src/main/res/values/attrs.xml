@@ -25,6 +25,7 @@
         <attr name="sk_colorText" format="reference|color"/>
         <attr name="sk_marginTextV" format="reference|dimension"/>
         <attr name="sk_marginTextH" format="reference|dimension"/>
+        <attr name="sk_canSeek" format="reference|boolean"/>
     </declare-styleable>
 
 
