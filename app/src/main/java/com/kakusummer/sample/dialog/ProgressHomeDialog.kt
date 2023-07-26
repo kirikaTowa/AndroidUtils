@@ -32,7 +32,6 @@ class ProgressHomeDialog
     override fun initViewEvent() {
         binding.apply {
             pgsWidth.also {
-                it.setProgress((2 - AppSpUtils.getWeightScaling()) * 2)
                 it.setOnSeekChangeListener(object : ProgressDigitalSeekBar.OnSeekChangeListener {
                     override fun onProgressChanged(
                         view: ProgressDigitalSeekBar?,
@@ -48,14 +47,12 @@ class ProgressHomeDialog
                     }
 
                     override fun onStopTrackingTouch(view: ProgressDigitalSeekBar?) {
-                        AppSpUtils.saveWeightScaling(MainActivity.weightScaling)
                     }
 
                 })
             }
 
             pgsDepth.also {
-                it.setProgress(AppSpUtils.getDeepScaling())
                 it.setOnSeekChangeListener(object : ProgressDigitalSeekBar.OnSeekChangeListener {
                     override fun onProgressChanged(
                         view: ProgressDigitalSeekBar?,
@@ -71,9 +68,7 @@ class ProgressHomeDialog
                     }
 
                     override fun onStopTrackingTouch(view: ProgressDigitalSeekBar?) {
-                        AppSpUtils.saveDeepScaling(MainActivity.scaleScaling)
                     }
-
                 })
             }
         }

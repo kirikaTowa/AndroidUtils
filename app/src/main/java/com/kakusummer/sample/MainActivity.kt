@@ -23,14 +23,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
             val progressDialog = ProgressHomeDialog(this@MainActivity,
                 callbackWidth = {
-                    weightScaling = (2 - (it * 0.5)).toFloat()
-                    resetSkidRecycleView()
-                    resetDisplayCover = true
                 },
                 callbackDepth = {
-                    scaleScaling = it
-                    resetSkidRecycleView()
-                    resetDisplayCover = true
                 })
             progressDialog.show()
         }

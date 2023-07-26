@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.BounceInterpolator
 import android.view.animation.OvershootInterpolator
@@ -33,6 +34,10 @@ class FloatActivity : BaseActivity<ActivityFloatBinding>() {
     }
     override fun initListener() {
         super.initListener()
+        binding.ivControl.setOnLongClickListener {
+            Log.d("yeTest", "LongClick: ")
+           true
+        }
         binding.ivControl.setOnClickListener {
             switchMenu(isOpened)
             isOpened = !isOpened
