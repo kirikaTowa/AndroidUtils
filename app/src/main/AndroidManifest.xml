@@ -13,10 +13,13 @@
         android:theme="@style/Theme.AndroidUtils"
         tools:targetApi="31">
         <activity
+            android:name="com.kakusummer.sample.MainActivity"
+            android:exported="false" />
+        <activity
             android:name="com.kakusummer.sample.FloatActivity"
             android:exported="false" />
         <activity
-            android:name="com.kakusummer.sample.MainActivity"
+            android:name="com.kakusummer.sample.viewCustom.RefreshDiscoverActivity.adapter.RefreshDiscoveryActivity"
             android:exported="false" />
         <activity
             android:name="com.kakusummer.sample.viewCustom.SwitchButtonActivity"
@@ -25,7 +28,7 @@
             android:name="com.kakusummer.sample.viewCustom.WheelViewActivity"
             android:exported="false" />
         <activity
-            android:name="com.kakusummer.sample.viewCustom.RefreshDiscoverActivity.adapter.RefreshDiscoveryActivity"
+            android:name="com.kakusummer.sample.ViewStubActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

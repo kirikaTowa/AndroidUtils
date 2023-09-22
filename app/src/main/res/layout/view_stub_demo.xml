@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_text_one"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
+            android:text="测试文案1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_text_two"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
+            app:layout_constraintTop_toBottomOf="@+id/tv_text_one"
+            android:text="测试文案2" />
+
+        <TextView
+            android:id="@+id/tv_text_three"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
+            app:layout_constraintTop_toBottomOf="@+id/tv_text_two"
+            android:text="测试文案3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
