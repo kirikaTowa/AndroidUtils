@@ -16,13 +16,19 @@
             android:name="com.kakusummer.sample.MainActivity"
             android:exported="false" />
         <activity
+            android:name="com.kakusummer.sample.FloatActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.kakusummer.sample.viewCustom.RefreshDiscoverActivity.adapter.RefreshDiscoveryActivity"
+            android:exported="false" />
+        <activity
             android:name="com.kakusummer.sample.viewCustom.SwitchButtonActivity"
             android:exported="false" />
         <activity
             android:name="com.kakusummer.sample.viewCustom.WheelViewActivity"
             android:exported="false" />
         <activity
-            android:name="com.kakusummer.sample.FloatActivity"
+            android:name="com.kakusummer.sample.ViewStubActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

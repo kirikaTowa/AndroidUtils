@@ -88,4 +88,5 @@ dependencies {
     implementation libs["immersionbar-ktx"]
     // fragment快速实现（可选）已废弃
     implementation libs["immersionbar-components"]
+    implementation  'io.github.scwang90:refresh-layout-kernel:2.0.6'      //核心必须依赖
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.kakusummer.sample.viewCustom.RefreshDiscoverActivity.adapter.RefreshDiscoveryActivity">
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            app:srlPrimaryColor="#333"
+            app:srlAccentColor="#fff"
+            app:srlEnableLoadMore="false"
+            app:srlEnableHeaderTranslationContent="true">
+            <com.kakusummer.sample.scwang.smart.refresh.header.StoreHouseHeaderSource
+                android:id="@+id/storeHouseHeader"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:shhText="Discovery"
+                app:shhLineWidth="2dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:overScrollMode="never"
+                tools:listitem="@android:layout/simple_list_item_2"/>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

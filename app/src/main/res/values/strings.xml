@@ -6,4 +6,16 @@
     <string name="str_statement_no">不同意</string>
     <string name="str_protocol_one">《用户协议》</string>
     <string name="str_protocol_two">《隐私政策》</string>
+
+    <string name="item_style_store_house_english">And change the display symbol in English</string>
+    <string name="item_style_store_house_chinese">The display symbol is Chinese</string>
+    <string name="item_style_store_house_icon">Follow the display symbol for ICONS</string>
+    <string name="item_style_store_house_brand">It is a trademark for the display symbol</string>
+
+    <string name="item_style_theme_orange_abstract">Change theme to orange color</string>
+    <string name="item_style_theme_red_abstract">Change theme to red color</string>
+    <string name="item_style_theme_green_abstract">Change theme to green color</string>
+    <string name="item_style_theme_blue_abstract">Change theme to blue color</string>
+    <string name="item_style_theme_default_abstract">Change theme to default color</string>
+
 </resources>
