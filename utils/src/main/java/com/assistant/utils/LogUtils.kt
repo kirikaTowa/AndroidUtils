@@ -16,6 +16,15 @@ object LogUtils {
 
     private var level = BuildConfig.LogLevel
 
+
+/*    private fun getLevels(): Int {
+        return if (BuildConfig.DEBUG){
+            level
+        }else{
+            NOTHING
+        }
+    }*/
+
     fun v(tag: String, msg: String) {
         if (level <= VERBOSE) {
             Log.v(tag, msg)

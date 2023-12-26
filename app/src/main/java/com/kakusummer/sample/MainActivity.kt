@@ -1,12 +1,11 @@
 package com.kakusummer.sample
 
-import android.util.Log
-import androidx.activity.OnBackPressedCallback
 import com.assistant.bases.BaseActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
+import com.bumptech.glide.request.RequestOptions
 import com.kakusummer.androidutils.R
 import com.kakusummer.androidutils.databinding.ActivityMainBinding
-import com.kakusummer.sample.dialog.ProgressHomeDialog
-import com.kakusummer.sample.dialog.TipUserPoliceDialog
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val layoutId: Int
@@ -17,7 +16,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initView() {
         super.initView()
         binding.apply {
-            tvHello.setOnClickListener {
+            /*tvHello.setOnClickListener {
                 pgsBar.setProgress(0.7F)
             }
 
@@ -26,7 +25,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 },
                 callbackDepth = {
                 })
-            progressDialog.show()
+            progressDialog.show()*/
+
+
+
+//            //测试Glide placeholder
+//            var options: RequestOptions = RequestOptions()
+//                .timeout(30000)
+//                .priority(Priority.HIGH)
+//
+//                options = options.placeholder(getDrawable(R.drawable.recommend_opera_end_placeholder))
+//
+//            Glide.with(this@MainActivity)
+//                .load("")
+//                .apply(options)
+//                .into(binding.tvTest)
         }
 
 
