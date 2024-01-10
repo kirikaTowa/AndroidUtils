@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_50"
         android:layout_marginEnd="@dimen/dp_50"
-        android:background="@color/translucent"
+        android:background="@color/transparent"
         android:orientation="vertical">    <!-- 取消对话框按钮图标 -->
 
 
