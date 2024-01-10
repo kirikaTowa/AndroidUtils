@@ -5,7 +5,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#00FFFF</color>
 
-      <color name="translucent">#00000000</color>
+      <color name="transparent">#00000000</color>
     <!--黑色 不透明度-->
     <color name="translucent_05">#0B000000</color>
     <color name="translucent_10">#1A000000</color>
