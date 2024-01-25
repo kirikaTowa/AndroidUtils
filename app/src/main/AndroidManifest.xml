@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <!--BLUETOOTH_CONNECT注掉的话  当前最新的Android13可以用蓝牙功能，但是动态申请权限就不会弹出来了-->
-    <!--<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />-->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
 
     <application

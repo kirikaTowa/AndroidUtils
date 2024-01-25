@@ -16,4 +16,6 @@ UtilsBridge need initApp() first
 
 ## Describe
 https://juejin.cn/column/7216221384372224037
+无需任何权限:清单文件都不需要声明
+
 
