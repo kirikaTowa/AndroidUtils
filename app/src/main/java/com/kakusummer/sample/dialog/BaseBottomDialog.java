@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import com.kakusummer.androidutils.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,7 +59,7 @@ public abstract class BaseBottomDialog<T extends ViewDataBinding> extends Bottom
 
 
     protected  int getStyle(){
-        return R.style.BottomSheetDFStyle;
+        return R.style.BottomSheetStyle;
     }
     @Nullable
     @Override
@@ -89,11 +89,6 @@ public abstract class BaseBottomDialog<T extends ViewDataBinding> extends Bottom
 
     protected void init() {
     }
-
-
-
-
-
 
 
     @Override
