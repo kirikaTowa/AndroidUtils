@@ -1,12 +1,12 @@
 package com.kakusummer.sample
 
+import android.content.Intent
+import android.content.IntentFilter
 import android.util.Log
-import androidx.activity.OnBackPressedCallback
 import com.assistant.bases.BaseActivity
+import com.assistant.utils.BlueAndEarPhoneUtils
 import com.kakusummer.androidutils.R
 import com.kakusummer.androidutils.databinding.ActivityMainBinding
-import com.kakusummer.sample.dialog.ProgressHomeDialog
-import com.kakusummer.sample.dialog.TipUserPoliceDialog
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val layoutId: Int
@@ -14,32 +14,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val TAG: String
         get() = "TAG_MainActivity"
 
+    private var receiverEar: BlueAndEarPhoneUtils.HeadphonesReceiver? = null
+
     override fun initView() {
         super.initView()
-        binding.apply {
-            tvHello.setOnClickListener {
-                pgsBar.setProgress(0.7F)
-            }
-
-            val progressDialog = ProgressHomeDialog(this@MainActivity,
-                callbackWidth = {
-                },
-                callbackDepth = {
-                })
-            progressDialog.show()
-        }
-
-
-
     }
 
     override fun initListener() {
         super.initListener()
-//        //可以覆盖掉父监听
-//        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                Log.d("yeTest", "handleOnBackPressed cover: ")
-//            }
-//        })
+        registerEarPhoneReceiver()
+    }
+
+    private fun registerEarPhoneReceiver() {
+        receiverEar = BlueAndEarPhoneUtils.HeadphonesReceiver {
+            if (it) {
+                Log.d("yeTest", "耳机 当前连接: ")
+            }else{
+                Log.d("yeTest", "耳机 当前拔出: ")
+            }
+        }
+        val filter = IntentFilter(Intent.ACTION_HEADSET_PLUG)
+        registerReceiver(receiverEar, filter)
+    }
+
+    override fun onDestroy() {
+        unregisterReceiver(receiverEar)
+        super.onDestroy()
     }
 }
