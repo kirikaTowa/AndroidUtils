@@ -1,9 +1,7 @@
 package com.kakusummer.sample
 
+import android.content.Intent
 import com.assistant.bases.BaseActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.Priority
-import com.bumptech.glide.request.RequestOptions
 import com.kakusummer.androidutils.R
 import com.kakusummer.androidutils.databinding.ActivityMainBinding
 
@@ -28,7 +26,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             progressDialog.show()*/
 
 
-
 //            //测试Glide placeholder
 //            var options: RequestOptions = RequestOptions()
 //                .timeout(30000)
@@ -40,8 +37,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                .load("")
 //                .apply(options)
 //                .into(binding.tvTest)
-        }
 
+
+            val intent = Intent(this@MainActivity, MainActivity2::class.java)
+            val music=Music()
+            music.id=1
+            music.album=39
+            intent.putExtra("Music", music)
+            startActivity(intent)
+        }
 
 
     }
