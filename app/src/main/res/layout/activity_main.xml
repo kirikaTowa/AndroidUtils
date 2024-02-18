@@ -13,10 +13,36 @@
         android:background="@color/white"
         tools:context=".MainActivity">
 
-        <ImageView
+        <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/dp_10"
+            android:id="@+id/tvStart"
+            android:text="Start"
+            android:textSize="@dimen/dp_30"
+            android:gravity="center"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_80"/>
+
+        <TextView
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Reset"
+            android:textSize="@dimen/dp_30"
+            android:gravity="center"
+            android:layout_margin="@dimen/dp_10"
+            android:id="@+id/tvReset"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_80"/>
+
+
+        <TextView
             android:id="@+id/tvTest"
             android:layout_width="@dimen/dp_90"
             android:layout_height="@dimen/dp_90"
+            android:text="0"
+            android:textSize="@dimen/dp_30"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
