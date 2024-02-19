@@ -33,6 +33,7 @@ class CountingService : Service() {
         return super.onStartCommand(intent, flags, startId)
     }
 
+    //Service一直在后台计数 通过广播发送消息给Activity更新消息
     private fun startCounting() {
         countRunnable = object : Runnable {
             override fun run() {

@@ -46,7 +46,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onResume() {
         super.onResume()
-        //API 26判断
         registerReceiver(countReceiver, IntentFilter(CountingService.COUNT_UPDATE))
     }
 
