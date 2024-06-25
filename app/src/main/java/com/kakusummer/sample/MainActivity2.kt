@@ -15,6 +15,5 @@ class MainActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_main2)
         val getMusic:Music= intent.extras?.get("Music") as Music
         Log.d("yeTest", "onCreate: "+getMusic)
-        Log.d("yeTest", "onCreate: "+getMusic.itemType)
     }
 }
