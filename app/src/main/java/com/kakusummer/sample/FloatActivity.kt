@@ -2,13 +2,9 @@ package com.kakusummer.sample
 
 import android.animation.ValueAnimator
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.BounceInterpolator
 import android.view.animation.OvershootInterpolator
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.assistant.bases.BaseActivity
 import com.kakusummer.androidutils.R
@@ -32,11 +28,12 @@ class FloatActivity : BaseActivity<ActivityFloatBinding>() {
         }
 
     }
+
     override fun initListener() {
         super.initListener()
         binding.ivControl.setOnLongClickListener {
             Log.d("yeTest", "LongClick: ")
-           true
+            true
         }
         binding.ivControl.setOnClickListener {
             switchMenu(isOpened)
