@@ -31,6 +31,10 @@
         </activity>
 
         <activity
+            android:name="com.kakusummer.sample.WheelViewCustomActivity"
+            android:exported="false" />
+
+        <activity
             android:name="com.kakusummer.sample.MainActivity"
             android:exported="false" />
         <activity
