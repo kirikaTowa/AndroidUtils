@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:background="@color/white"
+        android:id="@+id/back_ground_view"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="60dp"
+            android:id="@+id/sure_btn"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:text="确定"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:background="#1DB7E2"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="60dp"
+            android:id="@+id/cancel_btn"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:id="@+id/title_label"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:text="体重"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/line_view"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="60dp"
+            android:background="#D4D4D4"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:id="@+id/content_label"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="59.0"
+            android:textSize="33sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginTop="34dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/line_view"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:id="@+id/unit_label"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="kg"
+            android:textSize="13sp"
+            android:textColor="#333333"
+            android:layout_marginTop="34dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/line_view"/>
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="content_label,unit_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="34dp"
+            app:flow_verticalAlign="baseline"
+            app:layout_constraintTop_toTopOf="@id/line_view"
+            />
+
+        <com.kakusummer.sample.dialog.rulerview.RulerView
+            android:layout_width="match_parent"
+            android:id="@+id/ruler_view"
+            android:layout_height="45dp"
+            android:layout_marginTop="90dp"
+            app:ruler_alphaEnable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/line_view"
+            app:ruler_lineColor="#999999"
+            app:ruler_lineMaxHeight="25dp"
+            app:ruler_lineMidHeight="12dp"
+            app:ruler_lineMinHeight="12dp"
+            app:ruler_lineSpaceWidth="5dp"
+            app:ruler_lineWidth="1.5dp"
+            app:ruler_maxValue="250.0"
+            app:ruler_minValue="80.0"
+            app:ruler_perValue="1"
+            app:ruler_selectorValue="165.0"
+            app:ruler_textSize="11sp"
+            app:ruler_textColor="#999999" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content_label"
+            />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:background="#1DB7E2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ruler_view"
+                />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
