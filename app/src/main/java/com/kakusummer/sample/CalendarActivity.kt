@@ -64,9 +64,10 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding>() {
         }
         val calendarview: CalendarView = findViewById<View>(R.id.calendarview) as CalendarView
         calendarview.setOnDateChangeListener { p0, year, month, dayOfMonth ->
+            //month是偏移量，从0开始
             Toast.makeText(
                 this@CalendarActivity,
-                "您选择的时间是：" + year + "年" + month + "月" + dayOfMonth + "日",
+                "您选择的时间是：" + year + "年" + month.plus(1) + "月" + dayOfMonth + "日",
                 Toast.LENGTH_SHORT
             ).show()
         }
