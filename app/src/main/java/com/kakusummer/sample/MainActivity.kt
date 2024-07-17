@@ -12,16 +12,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
         super.initView()
-        var tipUserDialog:TipUserPoliceDialog?=null
-        tipUserDialog= TipUserPoliceDialog(this@MainActivity) {
-            if (it) {
-                tipUserDialog?.dismiss()
-            } else {
-                finish()
-                tipUserDialog?.dismiss()
-            }
-        }
-        tipUserDialog.show()
     }
 
 }

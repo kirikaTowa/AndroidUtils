@@ -60,16 +60,33 @@ android {
 
     //4. 构建变体-配置productFlavors
     productFlavors {
+        /*上架试空包 包名写错也没关系*/
         channel1 {
             buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-            applicationId "com.kakusummer.androidutils1"
+            applicationId "com.kakusummer.androidutils"
             flavorDimensions 'dova'
+            resValue "string", "app_name", "utils1"
         }
 
         channel2 {
             buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-            applicationId "com.kakusummer.androidutils2"
+            applicationId "com.kakusummer.androidutils"
             flavorDimensions 'dova'
+            resValue "string", "app_name", "utils2"
+        }
+
+        channel3 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            applicationId "com.kakusummer.androidutils"
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "utils3"
+        }
+
+        channel4 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            applicationId "com.kakusummer.androidutils"
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "utils4"
         }
 
         productFlavors.all { flavor ->
@@ -97,6 +114,14 @@ android {
         }
         channel2 {
             res.srcDirs = ['src/channel2/res']
+            //java.srcDirs = ['src/channel2/java']
+        }
+        channel3 {
+            res.srcDirs = ['src/channel1/res']
+            //java.srcDirs = ['src/channel2/java']
+        }
+        channel4 {
+            res.srcDirs = ['src/channel1/res']
             //java.srcDirs = ['src/channel2/java']
         }
     }

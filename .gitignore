@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+resources/build
+viewCustom/build
+.idea
