@@ -63,30 +63,30 @@ android {
         /*上架试空包 包名写错也没关系*/
         channel1 {
             buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-            applicationId "com.kakusummer.androidutils"
+            applicationId "com.kb.xymia"
             flavorDimensions 'dova'
-            resValue "string", "app_name", "utils1"
+            resValue "string", "app_name", "夏鱼Mia"
         }
 
         channel2 {
             buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-            applicationId "com.kakusummer.androidutils"
+            applicationId "com.kb.xymia"
             flavorDimensions 'dova'
-            resValue "string", "app_name", "utils2"
+            resValue "string", "app_name", "夏鱼Mia"
         }
 
         channel3 {
             buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-            applicationId "com.kakusummer.androidutils"
+            applicationId "com.kb.xymia"
             flavorDimensions 'dova'
-            resValue "string", "app_name", "utils3"
+            resValue "string", "app_name", "夏鱼Mia"
         }
 
         channel4 {
             buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-            applicationId "com.kakusummer.androidutils"
+            applicationId "com.kb.xymia"
             flavorDimensions 'dova'
-            resValue "string", "app_name", "utils4"
+            resValue "string", "app_name", "夏鱼Mia"
         }
 
         productFlavors.all { flavor ->
@@ -97,7 +97,8 @@ android {
             variant.outputs.all { output ->
                 def fileName
                 if (variant.buildType.name == "release") {
-                    fileName = "${applicationId}_${variant.name}_${defaultConfig.versionName}_release.apk"
+                    fileName = "${applicationId}_release.apk"
+                    //fileName = "${applicationId}_${variant.name}_${defaultConfig.versionName}_release.apk"
                 } else {
                     fileName = "${applicationId}_${variant.name}_${defaultConfig.versionName}_test.apk"
                 }
