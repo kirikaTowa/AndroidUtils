@@ -47,4 +47,17 @@
         <attr name="srlDropHeight" format="dimension" />
         <attr name="srlEnableFadeAnimation" format="boolean" />
     </declare-styleable>
+
+
+    <array name="blood_sugar_color">
+        <item>#FF00C3FF</item>
+        <item>#FF369FFF</item>
+        <item>#FFF92717</item>
+    </array>
+
+    <array name="image_drawables">
+        <item>@drawable/ic_1</item>
+        <item>@drawable/ic_2</item>
+        <item>@drawable/ic_3</item>
+    </array>
 </resources>

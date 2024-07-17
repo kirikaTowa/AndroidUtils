@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PressureView">
+        <attr name="pressureType" format="enum">
+            <enum name="pressure" value="0" />
+            <enum name="bloodSugar" value="1" />
+        </attr>
+       <attr name="pressureColor" format="reference"/>
+       <attr name="pressureHeight" format="dimension"/>
+       <attr name="pressureRadius" format="dimension"/>
+       <attr name="pressureSpaceColor" format="color"/>
+       <attr name="pressureSpaceWidth" format="dimension"/>
+    </declare-styleable>
+
+
+</resources>
