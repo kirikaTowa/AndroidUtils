@@ -7,10 +7,12 @@ def cfg = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 
 android {
+    //改包名的时候 记得命名空间不要改
     namespace 'com.kakusummer.androidutils'
     compileSdk cfg.compileSdk
 
     defaultConfig {
+        //包名
         applicationId "com.kakusummer.androidutils"
         minSdk cfg.minSdk
         targetSdk cfg.targetSdk
