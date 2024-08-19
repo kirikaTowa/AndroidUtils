@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         //包名
-        applicationId "com.kakusummer.androidutils"
+        applicationId "com.hzsyun.zytqyb100"
         minSdk cfg.minSdk
         targetSdk cfg.targetSdk
         versionCode cfg.versionCode
@@ -65,35 +65,303 @@ android {
         /*上架试空包 包名写错也没关系*/
         channel1 {
             buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-            applicationId "com.kb.xymia"
             flavorDimensions 'dova'
-            buildConfigField "String", "APP_NAME", '"wifi万能快连王"'
-            resValue "string", "app_name", "夏鱼Mia"
+            resValue "string", "app_name", "福源充电"
+            buildConfigField "String", "APP_NAME", '"福源充电"'
         }
 
         channel2 {
             buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-            applicationId "com.kb.xymia"
             flavorDimensions 'dova'
-            resValue "string", "app_name", "夏鱼Mia"
-            buildConfigField "String", "APP_NAME", '"Neptune"'
+            resValue "string", "app_name", "璀璨充电"
+            buildConfigField "String", "APP_NAME",'"璀璨充电"'
         }
 
         channel3 {
             buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-            applicationId "com.kb.xymia"
             flavorDimensions 'dova'
-            buildConfigField "String", "APP_NAME", '"Neptune"'
-            resValue "string", "app_name", "夏鱼Mia"
+            resValue "string", "app_name", "月夜充电"
+            buildConfigField "String", "APP_NAME", '"月夜充电"'
         }
 
         channel4 {
             buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-            applicationId "com.kb.xymia"
             flavorDimensions 'dova'
-            resValue "string", "app_name", "夏鱼Mia"
-            buildConfigField "String", "APP_NAME", '"Neptune"'
+            resValue "string", "app_name", "华光充电"
+            buildConfigField "String", "APP_NAME", '"华光充电"'
         }
+
+        channel5 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "清夕充电"
+            buildConfigField "String", "APP_NAME", '"清夕充电"'
+        }
+
+        channel6 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "日光充电"
+            buildConfigField "String", "APP_NAME", '"日光充电"'
+        }
+
+
+        channel7 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "彩虹充电"
+            buildConfigField "String", "APP_NAME", '"彩虹充电"'
+        }
+
+        channel8 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "星辰充电"
+            buildConfigField "String", "APP_NAME",  '"星辰充电" '
+        }
+
+        channel9 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "阳光充电"
+            buildConfigField "String", "APP_NAME",  '"阳光充电" '
+        }
+
+        channel10 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "曜日充电"
+            buildConfigField "String", "APP_NAME",  '"曜日充电" '
+        }
+
+        channel11 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "充电福气旺"
+            buildConfigField "String", "APP_NAME",  '"充电福气旺" '
+        }
+
+        channel12 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "盈满充电"
+            buildConfigField "String", "APP_NAME", '"盈满充电"'
+        }
+
+        channel13 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "充电福满盈"
+            buildConfigField "String", "APP_NAME", '"充电福满盈"'
+        }
+
+
+        channel14 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "康达充电"
+            buildConfigField "String", "APP_NAME", '"康达充电"'
+        }
+
+
+        channel15 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "福至充电"
+            buildConfigField "String", "APP_NAME", '"福至充电"'
+        }
+
+
+        channel16 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "扬帆充电"
+            buildConfigField "String", "APP_NAME", '"扬帆充电"'
+        }
+
+
+        channel17 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "诚意充电"
+            buildConfigField "String", "APP_NAME", '"诚意充电"'
+        }
+
+        channel18 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "锦绣充电"
+            buildConfigField "String", "APP_NAME", '"锦绣充电"'
+        }
+
+
+        channel19 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "祥彩充电"
+            buildConfigField "String", "APP_NAME", '"祥彩充电"'
+        }
+
+        channel20 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "繁盛充电"
+            buildConfigField "String", "APP_NAME", '"繁盛充电"'
+        }
+
+
+        channel21 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "吉星充电"
+            buildConfigField "String", "APP_NAME", '"吉星充电"'
+        }
+
+
+        channel22 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "同心充电"
+            buildConfigField "String", "APP_NAME", '"同心充电"'
+        }
+
+
+        channel23 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "呈祥充电"
+            buildConfigField "String", "APP_NAME", '"呈祥充电"'
+        }
+
+
+        channel24 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "六福充电"
+            buildConfigField "String", "APP_NAME", '"六福充电"'
+        }
+
+        channel25 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "温馨充电"
+            buildConfigField "String", "APP_NAME", '"温馨充电"'
+        }
+
+
+        channel26 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "幸福充电"
+            buildConfigField "String", "APP_NAME", '"幸福充电"'
+        }
+
+
+        channel27 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "欣悦充电"
+            buildConfigField "String", "APP_NAME", '"欣悦充电"'
+        }
+
+        channel28 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "清风充电"
+            buildConfigField "String", "APP_NAME", '"清风充电"'
+        }
+
+        channel29 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "云闪充电"
+            buildConfigField "String", "APP_NAME", '"云闪充电"'
+        }
+
+        channel30 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "东来充电"
+            buildConfigField "String", "APP_NAME", '"东来充电"'
+        }
+
+        channel31 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "万事充电"
+            buildConfigField "String", "APP_NAME", '"万事充电"'
+        }
+
+        channel32 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "极豹充电"
+            buildConfigField "String", "APP_NAME", '"极豹充电"'
+        }
+
+        channel33 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "红日充电"
+            buildConfigField "String", "APP_NAME", '"红日充电"'
+        }
+
+        channel34 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "充电来财"
+            buildConfigField "String", "APP_NAME", '"充电来财"'
+        }
+
+        channel35 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "凌云充电"
+            buildConfigField "String", "APP_NAME", '"凌云充电"'
+        }
+
+        channel36 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "福启充电"
+            buildConfigField "String", "APP_NAME", '"福启充电"'
+        }
+
+        channel37 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "五谷充电"
+            buildConfigField "String", "APP_NAME", '"五谷充电"'
+        }
+        channel38 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "松竹充电"
+            buildConfigField "String", "APP_NAME", '"松竹充电"'
+        }
+
+        channel39 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "企鹅充电"
+            buildConfigField "String", "APP_NAME", '"企鹅充电"'
+        }
+
+        channel40 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "和风充电"
+            buildConfigField "String", "APP_NAME", '"和风充电"'
+        }
+
+        channel41 {
+            buildConfigField "String", "TEST_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+            flavorDimensions 'dova'
+            resValue "string", "app_name", "暖心充电"
+            buildConfigField "String", "APP_NAME", '"暖心充电"'
+        }
+
+
 
         productFlavors.all { flavor ->
             flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
@@ -103,6 +371,7 @@ android {
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
                 def fileName
+
                 def appName = getBuildConfigFieldValue(variant,"APP_NAME").replaceAll('\"','')
 
                 if (variant.buildType.name == "release") {
@@ -112,6 +381,7 @@ android {
                     fileName = "${appName}${applicationId}_${variant.name}_${defaultConfig.versionName}_debug.apk"
                 }
                 outputFileName = fileName
+
             }
         }
 
