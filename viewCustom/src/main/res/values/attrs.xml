@@ -28,5 +28,7 @@
         <attr name="sk_canSeek" format="reference|boolean"/>
     </declare-styleable>
 
-
+    <declare-styleable name="CustomTitleView">
+        <attr name="cus_title_text" format="string" />
+    </declare-styleable>
 </resources>

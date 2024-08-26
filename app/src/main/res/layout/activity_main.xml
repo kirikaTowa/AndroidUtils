@@ -22,6 +22,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <com.assistant.viewcustom.demoxml.CustomTitleView
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/v_icp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="23dp"
+            android:layout_marginTop="40dp" />
         <!--app:sk_colorProgressFg="#DC143C"-->
         <!--android:layout_height="@dimen/dp_100"   设置响应区域大小-->
 
