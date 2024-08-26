@@ -44,7 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             music.id=1
             music.album=39
             intent.putExtra("Music", music)
-            startActivity(intent)
+            //startActivity(intent)
         }
 
 
