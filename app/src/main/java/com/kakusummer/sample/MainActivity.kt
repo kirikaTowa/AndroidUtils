@@ -39,11 +39,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                .into(binding.tvTest)
 
 
-            val intent = Intent(this@MainActivity, MainActivity2::class.java)
-            val music=Music()
-            music.id=1
-            music.album=39
-            intent.putExtra("Music", music)
+            val intent = Intent()
+            intent.setClassName("com.kakusummer.androidutils", "com.kakusummer.sample.MainActivity2")
+            startActivity(intent)
             //startActivity(intent)
         }
 

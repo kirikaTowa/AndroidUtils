@@ -14,7 +14,6 @@ class MainActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main2)
-        val getMusic:Music= intent.extras?.get("Music") as Music
-        Log.d("yeTest", "onCreate: "+getMusic)
+
     }
 }
