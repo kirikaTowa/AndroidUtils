@@ -23,9 +23,12 @@ android {
     }
 
     buildTypes {
-        debug {
-            buildConfigField "String", "BASE_URL", "\"http://xx.xx.xx.xx:xxxx/\""
-        }
+//        不配置debug变体
+//        debug {
+//            buildConfigField "String", "BASE_URL", "\"http://xx.xx.xx.xx:xxxx/\""
+//        }
+        // 移除 debug 构建类型
+
         release {
             buildConfigField "String", "BASE_URL", "\"http://xx.xx.xx.xx:xxxx/\""
             minifyEnabled false
@@ -58,9 +61,51 @@ android {
         buildConfig = true
     }
 
-    def myAppName = new HashSet()
-    myAppName.add("充电福至")
-    myAppName.add("充电乐康")
+    def myAppName = new LinkedHashSet()
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+    myAppName.add("")
+
+
+
+    variantFilter { variant ->
+        if (variant.buildType.name == 'debug') {
+            variant.setIgnore(true)
+        }
+    }
 
     //4. 构建变体-配置productFlavors
     productFlavors {
@@ -122,6 +167,9 @@ android {
     dataBinding {
         enabled true
     }
+
+
+
 }
 
 static String getBuildConfigFieldValue(def variant, def fiedName) {
