@@ -17,3 +17,5 @@ local.properties
 /.safedk/
 /.idea/
 resourses/build
+.idea/misc.xml
+.kotlin/sessions/kotlin-compiler-8993636686978229779.salive
