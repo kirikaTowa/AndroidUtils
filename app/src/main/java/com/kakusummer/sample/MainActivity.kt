@@ -1,9 +1,21 @@
 package com.kakusummer.sample
 
+import android.app.AlarmManager
+import android.app.Application
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.view.Gravity
+import android.widget.ImageView
 import com.assistant.bases.BaseActivity
+import com.hjq.permissions.OnPermissionCallback
+import com.hjq.permissions.Permission
+import com.hjq.permissions.XXPermissions
 import com.kakusummer.androidutils.R
 import com.kakusummer.androidutils.databinding.ActivityMainBinding
+import com.kakusummer.sample.action.AlarmReceiver
+import java.util.Calendar
+import android.provider.Settings
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val layoutId: Int
@@ -14,47 +26,38 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initView() {
         super.initView()
         binding.apply {
-            /*tvHello.setOnClickListener {
-                pgsBar.setProgress(0.7F)
+
+            setAlarmButton.setOnClickListener {
+                setAlarm()
             }
-
-            val progressDialog = ProgressHomeDialog(this@MainActivity,
-                callbackWidth = {
-                },
-                callbackDepth = {
-                })
-            progressDialog.show()*/
-
-
-//            //测试Glide placeholder
-//            var options: RequestOptions = RequestOptions()
-//                .timeout(30000)
-//                .priority(Priority.HIGH)
-//
-//                options = options.placeholder(getDrawable(R.drawable.recommend_opera_end_placeholder))
-//
-//            Glide.with(this@MainActivity)
-//                .load("")
-//                .apply(options)
-//                .into(binding.tvTest)
-
-
-            val intent = Intent()
-            intent.setClassName("com.kakusummer.androidutils", "com.kakusummer.sample.MainActivity2")
-            startActivity(intent)
-            //startActivity(intent)
         }
+    }
 
+    private fun setAlarm() {
+        // 设置闹钟的触发时间（比如设置为10秒后触发）
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.SECOND, 3)
 
+        // 获取 AlarmManager 系统服务
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        // 创建一个 Intent 来触发 BroadcastReceiver
+        val intent = Intent(this, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE )
+
+        // 设置闹钟
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 
     override fun initListener() {
         super.initListener()
-//        //可以覆盖掉父监听
-//        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                Log.d("yeTest", "handleOnBackPressed cover: ")
-//            }
-//        })
     }
+
+    override fun onResume() {
+        super.onResume()
+
+    }
+
+
+
 }
